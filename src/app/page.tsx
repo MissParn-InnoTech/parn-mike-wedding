@@ -75,7 +75,7 @@ export default function Home() {
           <div className="p-4 sm:p-8">
             <div className="relative w-full overflow-hidden rounded-2xl border-2 border-[#789568]/20" style={{ paddingTop: '75%' }}>
               <iframe
-                src="https://online.flippingbook.com/view/491603905/"
+               src="https://online.flippingbook.com/view/491603905/"
                 title="PM Wedding Card"
                 className="absolute inset-0 w-full h-full border-0"
                 allowFullScreen
