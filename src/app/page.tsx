@@ -12,7 +12,7 @@ export default function Home() {
           <div className="flex justify-between items-center h-16">
             <span className="font-serif font-bold text-lg text-[#789568]">PARN & MIKE</span>
             <div className="space-x-6">
-              <Link href="/photos" className="text-sm font-serif font-medium text-[#536B3E] hover:text-[#789568]">Photos</Link>
+              <Link href="https://drive.google.com/drive/folders/161V_cnOtutZLQOh5CVz3Es5fmMdDBX4R?usp=sharing" target="_blank" rel="noopener noreferrer" className="text-sm font-serif font-medium text-[#536B3E] hover:text-[#789568]">Photos</Link>
               <Link href="/rsvp" className="text-sm font-serif font-medium text-[#536B3E] hover:text-[#789568]">RSVP</Link>
               <Link href="/information" className="text-sm font-serif font-medium text-[#536B3E] hover:text-[#789568]">Information</Link>
               <Link href="/schedule" className="text-sm font-serif font-medium text-[#536B3E] hover:text-[#789568]">Schedule</Link>
@@ -110,7 +110,7 @@ export default function Home() {
           </Link>
 
           {/* Gallery Card */}
-          <Link href="/photos" className="group">
+          <Link href="https://drive.google.com/drive/folders/161V_cnOtutZLQOh5CVz3Es5fmMdDBX4R?usp=sharing" target="_blank" rel="noopener noreferrer" className="group">
             <div className="bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all transform hover:scale-105 border border-[#789568]/10">
               <div className="relative h-48 bg-gradient-to-b from-[#789568]/20 to-[#F5EBD2] flex items-center justify-center">
                 <img src="https://i.postimg.cc/fbxq5GBQ/khxng-char-wy-(3).png" alt="Gallery" className="w-28 h-28 object-contain" />
