@@ -1,51 +1,16 @@
 'use client'
-
 import Link from 'next/link'
 
 export default function UploadPage() {
-  const receiptUrl = 'https://drive.google.com/drive/folders/1YHj4X7oMPL65LF4-sM_8XrDM96q0rNA4'
-  const photosUrl = 'https://drive.google.com/drive/folders/161V_cnOtutZLQOh5CVz3Es5fmMdDBX4R'
-
   return (
     <div className="min-h-screen bg-[#F5EBD2] pt-20 pb-20">
       <div className="max-w-2xl mx-auto px-4">
-        <h1 className="text-4xl font-serif font-bold text-[#536B3E] text-center mb-12">
-          Share Your Moments 📸
-        </h1>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          <div className="bg-white rounded-lg shadow-md p-6 border-2 border-[#C9A45C]">
-            <h2 className="text-2xl font-bold text-[#536B3E] mb-3">🧾 URI สลิป</h2>
-            <p className="text-[#789568] mb-4">Upload payment receipts</p>
-            
-              href={receiptUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block bg-[#C9A45C] hover:bg-[#B7A286] text-white font-bold py-3 px-6 rounded-lg"
-            >
-              Open Folder
-            </a>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-md p-6 border-2 border-[#789568]">
-            <h2 className="text-2xl font-bold text-[#536B3E] mb-3">📸 Wedding Photos</h2>
-            <p className="text-[#789568] mb-4">Share your beautiful photos</p>
-            
-              href={photosUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block bg-[#789568] hover:bg-[#536B3E] text-white font-bold py-3 px-6 rounded-lg"
-            >
-              Open Folder
-            </a>
-          </div>
+        <h1 className="text-3xl font-bold text-[#536B3E] text-center mb-8">Share Your Moments</h1>
+        <div className="space-y-4">
+          <a href="https://drive.google.com/drive/folders/1YHj4X7oMPL65LF4-sM_8XrDM96q0rNA4" target="_blank" className="block bg-[#C9A45C] text-white p-4 rounded text-center">URI สลิป</a>
+          <a href="https://drive.google.com/drive/folders/161V_cnOtutZLQOh5CVz3Es5fmMdDBX4R" target="_blank" className="block bg-[#789568] text-white p-4 rounded text-center">Wedding Photos</a>
         </div>
-
-        <div className="text-center">
-          <Link href="/" className="text-[#789568] hover:text-[#536B3E] font-semibold underline">
-            ← Back to Home
-          </Link>
-        </div>
+        <div className="text-center mt-8"><Link href="/">Back Home</Link></div>
       </div>
     </div>
   )
