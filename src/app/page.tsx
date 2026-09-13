@@ -84,7 +84,7 @@ export default function Home() {
             </div>
 
             <div className="text-center mt-6">
-              <a href="https://publuu.com/flip-book/1162216/2585463" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-[#789568] to-[#536B3E] text-white font-serif font-medium rounded-lg hover:from-[#536B3E] hover:to-[#3a4d2e] transition-all">
+              <a href="https://online.flippingbook.com/view/491603905/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-[#789568] to-[#536B3E] text-white font-serif font-medium rounded-lg hover:from-[#536B3E] hover:to-[#3a4d2e] transition-all">
                 เปิดการ์ดเต็มจอ / Open Full Screen
               </a>
             </div>
