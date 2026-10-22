@@ -5,20 +5,20 @@ import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 
 const GALLERY_PHOTOS = [
-  'https://i.postimg.cc/fRZp0Twt/PM-Wedding-Card.png',
-  'https://i.postimg.cc/y6MKMJgY/ch-xng-thangkar-cha-range-n-Wedding-(7).png',
+  'https://i.postimg.cc/LsG5B2rF/853627697-29575805742005040-2034688767196755346-n.jpg',
   'https://i.postimg.cc/Hs5cSyPC/6A1A2566.jpg',
+  'https://i.postimg.cc/fRZp0Twt/PM-Wedding-Card.png',
   'https://i.postimg.cc/Hs5cSyPG/IMG-1157.jpg',
   'https://i.postimg.cc/Hs5cSyvS/IMG-1158.jpg',
+  'https://i.postimg.cc/pVfrzNC3/Unknown-31.png',
   'https://i.postimg.cc/pX8h0Fc4/IMG-1624.jpg',
   'https://i.postimg.cc/dVY7gVz0/IMG-3285.jpg',
+  'https://i.postimg.cc/y6MKMJgY/ch-xng-thangkar-cha-range-n-Wedding-(7).png',
   'https://i.postimg.cc/6pX7FpDv/IMG-3905.jpg',
-  'https://i.postimg.cc/pLH93Lg9/IMG-9434.jpg',
-  'https://i.postimg.cc/YCtcvzMZ/Unknown-5.png',
-  'https://i.postimg.cc/LsG5B2rF/853627697-29575805742005040-2034688767196755346-n.jpg',
-  'https://i.postimg.cc/pVfrzNC3/Unknown-31.png',
   'https://i.postimg.cc/j2cR9bk5/Unknown-14.png',
+  'https://i.postimg.cc/pLH93Lg9/IMG-9434.jpg',
   'https://i.postimg.cc/7YPHz5fq/Unknown-15.png',
+  'https://i.postimg.cc/YCtcvzMZ/Unknown-5.png',
 ]
 
 const WEDDING_TIME = new Date('2026-12-06T07:09:00+07:00').getTime()
