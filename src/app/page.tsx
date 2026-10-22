@@ -15,6 +15,10 @@ const GALLERY_PHOTOS = [
   'https://i.postimg.cc/6pX7FpDv/IMG-3905.jpg',
   'https://i.postimg.cc/pLH93Lg9/IMG-9434.jpg',
   'https://i.postimg.cc/YCtcvzMZ/Unknown-5.png',
+  'https://i.postimg.cc/LsG5B2rF/853627697-29575805742005040-2034688767196755346-n.jpg',
+  'https://i.postimg.cc/pVfrzNC3/Unknown-31.png',
+  'https://i.postimg.cc/j2cR9bk5/Unknown-14.png',
+  'https://i.postimg.cc/7YPHz5fq/Unknown-15.png',
 ]
 
 const WEDDING_TIME = new Date('2026-12-06T07:09:00+07:00').getTime()
