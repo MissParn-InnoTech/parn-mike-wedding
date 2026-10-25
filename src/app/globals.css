@@ -2,6 +2,14 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+/* Thai font: Puimek (ปุยเมฆ) by Crafty Font — used only for Thai characters */
+@font-face {
+  font-family: 'Puimek';
+  src: url('/fonts/Puimek.woff2') format('woff2'), url('/fonts/Puimek.ttf') format('truetype');
+  font-display: swap;
+  unicode-range: U+0E00-0E7F, U+200C-200D, U+25CC;
+}
+
 :root {
   --color-sage-olive: #789568;
   --color-warm-ivory: #F5EBD2;
@@ -21,7 +29,7 @@ html {
 }
 
 body {
-  font-family: 'Georgia', 'Times New Roman', serif;
+  font-family: 'Puimek', 'Georgia', 'Times New Roman', serif;
   background-color: #F5EBD2;
   color: #2a2a2a;
 }
@@ -41,7 +49,7 @@ body::before {
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Georgia', serif;
+  font-family: 'Puimek', 'Georgia', serif;
   color: var(--color-sage-olive);
   font-weight: 600;
 }

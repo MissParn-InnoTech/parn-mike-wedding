@@ -37,10 +37,10 @@ export default function RSVPPage() {
 
       setSubmitted(true)
       setFormData({ full_name: '', phone: '', party_size: '1' })
-      alert('ยืนยันการเข้าร่วมสำเร็จ! ขอบคุณค่ะ 💚')
+      alert('ได้รับคำตอบรับเรียบร้อยแล้ว ขอบคุณมากค่ะ 💚')
 
     } catch (err: any) {
-      alert('เกิดข้อผิดพลาด: ' + err.message)
+      alert('ส่งข้อมูลไม่สำเร็จ กรุณาลองใหม่อีกครั้ง: ' + err.message)
     } finally {
       setLoading(false)
     }
@@ -66,7 +66,7 @@ export default function RSVPPage() {
 
       <div className="max-w-2xl mx-auto px-4 py-16">
         <h1 className="text-4xl font-serif font-bold text-[#536B3E] text-center mb-2">RSVP</h1>
-        <p className="text-center text-[#789568] mb-12">ยืนยันการเข้าร่วมงานแต่งงาน</p>
+        <p className="text-center text-[#789568] mb-12">รบกวนตอบรับภายในวันที่ 15 พฤศจิกายน 2569 เพื่อให้เราเตรียมการต้อนรับได้อย่างเหมาะสม</p>
 
         <div className="bg-white rounded-3xl shadow-xl p-8 border border-[#789568]/10">
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -94,7 +94,7 @@ export default function RSVPPage() {
             </div>
 
             <div>
-              <label className="block text-[#536B3E] font-semibold mb-2">คุณจะเข้าร่วมหรือไม่ *</label>
+              <label className="block text-[#536B3E] font-semibold mb-2">สะดวกมาร่วมงานไหมคะ *</label>
               <div className="space-y-2">
                 <label className="flex items-center">
                   <input
@@ -103,7 +103,7 @@ export default function RSVPPage() {
                     onChange={() => setAttending('yes')}
                     className="mr-2"
                   />
-                  <span className="text-[#536B3E]">ใช่ ฉันจะเข้าร่วม</span>
+                  <span className="text-[#536B3E]">ไปร่วมงานแน่นอน</span>
                 </label>
                 <label className="flex items-center">
                   <input
@@ -112,14 +112,14 @@ export default function RSVPPage() {
                     onChange={() => setAttending('no')}
                     className="mr-2"
                   />
-                  <span className="text-[#536B3E]">ขออภัย ฉันไม่สามารถเข้าร่วมได้</span>
+                  <span className="text-[#536B3E]">เสียดายจัง ไม่สะดวกไปร่วมงาน</span>
                 </label>
               </div>
             </div>
 
             {isAttending && (
               <div>
-                <label className="block text-[#536B3E] font-semibold mb-2">จำนวนคน</label>
+                <label className="block text-[#536B3E] font-semibold mb-2">จำนวนผู้มาร่วมงาน (รวมตัวคุณ)</label>
                 <input
                   type="number"
                   min="1"
@@ -135,13 +135,13 @@ export default function RSVPPage() {
               disabled={loading}
               className="w-full bg-[#789568] hover:bg-[#536B3E] disabled:bg-gray-400 text-white font-bold py-4 rounded-lg transition"
             >
-              {loading ? 'กำลังส่ง...' : 'ยืนยันการเข้าร่วม'}
+              {loading ? 'กำลังส่ง...' : 'ส่งคำตอบรับ'}
             </button>
           </form>
 
           {submitted && (
             <div className="mt-6 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded">
-              ✓ ยืนยันการเข้าร่วมสำเร็จแล้ว! ขอบคุณค่ะ 💚
+              ✓ ได้รับคำตอบของคุณแล้ว ขอบคุณที่สละเวลานะคะ 💚
             </div>
           )}
         </div>

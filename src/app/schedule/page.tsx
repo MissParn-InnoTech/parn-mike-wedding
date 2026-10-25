@@ -7,7 +7,7 @@ export default function SchedulePage() {
     { 
       time: '07:09', 
       activity: 'Guest Registration & Buddhist Ceremony',
-      activityTH: 'ลงทะเบียนแขกและพิธีสงฆ์',
+      activityTH: 'ลงทะเบียนและพิธีสงฆ์',
       description: 'Welcome & Check-in',
       icon: 'https://i.postimg.cc/26JDfRNk/khxng-char-wy-(8).png'
     },
@@ -28,7 +28,7 @@ export default function SchedulePage() {
     { 
       time: '11:00', 
       activity: 'Guest Registration & Lunch Reception',
-      activityTH: 'ลงทะเบียนแขกเข้างาน + รับประทานอาหารกลางวัน',
+      activityTH: 'ลงทะเบียนและร่วมรับประทานอาหารกลางวัน',
       description: 'Lunch & Celebration',
       icon: 'https://i.postimg.cc/5yCM47f9/khxng-char-wy-(11).png'
     },
@@ -58,7 +58,7 @@ export default function SchedulePage() {
         <div className="text-center mb-12">
           <p className="text-[#789568] font-serif font-semibold tracking-[0.3em] text-sm mb-4">2 HEARTS · 1 JOURNEY</p>
           <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#536B3E] mb-2">Wedding Schedule</h1>
-          <p className="font-serif text-lg text-[#536B3E] mb-6">กำหนดการวันงาน</p>
+          <p className="font-serif text-lg text-[#536B3E] mb-6">กำหนดการงานมงคลสมรส</p>
           <div className="bg-white rounded-3xl shadow-lg border border-[#789568]/10 grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#789568]/15">
             <div className="px-6 py-6">
               <p className="text-[#C9A45C] font-serif font-semibold tracking-[0.2em] text-xs mb-2">DATE · วันที่</p>
@@ -68,7 +68,7 @@ export default function SchedulePage() {
             <div className="px-6 py-6">
               <p className="text-[#C9A45C] font-serif font-semibold tracking-[0.2em] text-xs mb-2">TIME · เวลา</p>
               <p className="text-[#536B3E] font-serif text-lg font-bold">From 07:09 AM</p>
-              <p className="text-[#789568] font-serif text-sm mt-1">เริ่ม 07:09 น. เป็นต้นไป</p>
+              <p className="text-[#789568] font-serif text-sm mt-1">ตั้งแต่เวลา 07.09 น. เป็นต้นไป</p>
             </div>
             <div className="px-6 py-6">
               <p className="text-[#C9A45C] font-serif font-semibold tracking-[0.2em] text-xs mb-2">VENUE · สถานที่</p>
@@ -121,24 +121,24 @@ export default function SchedulePage() {
         {/* Good to Know Section */}
         <div className="bg-gradient-to-r from-[#789568]/15 to-[#536B3E]/15 border-2 border-[#789568]/30 rounded-2xl p-6 sm:p-8 mb-8">
           <h2 className="font-serif text-2xl font-bold text-[#536B3E] mb-6 text-center">
-            Good to Know / ข้อมูลน่ารู้
+            Good to Know / ข้อควรทราบ
           </h2>
           <ul className="grid md:grid-cols-2 gap-x-8 gap-y-4 text-[#536B3E] font-serif font-medium">
             <li className="flex items-start gap-3">
               <span className="w-2 h-2 rounded-full bg-[#789568] mt-2 flex-shrink-0"></span>
-              <span>Come a little early and make yourself comfortable<br /><span className="text-sm font-normal text-[#789568]">มาถึงก่อนเวลาเล็กน้อย จะได้ไม่ต้องรีบ</span></span>
+              <span>Come a little early and make yourself comfortable<br /><span className="text-sm font-normal text-[#789568]">เผื่อเวลามาถึงก่อนสักนิด จะได้ไม่ต้องรีบ</span></span>
             </li>
             <li className="flex items-start gap-3">
               <span className="w-2 h-2 rounded-full bg-[#789568] mt-2 flex-shrink-0"></span>
-              <span>Dress up and celebrate with us<br /><span className="text-sm font-normal text-[#789568]">แต่งตัวสวยหล่อมาฉลองด้วยกัน</span></span>
+              <span>Dress up and celebrate with us<br /><span className="text-sm font-normal text-[#789568]">แต่งกายโทนครีม ทอง หรือเขียวเซจ มาร่วมฉลองด้วยกัน</span></span>
             </li>
             <li className="flex items-start gap-3">
               <span className="w-2 h-2 rounded-full bg-[#789568] mt-2 flex-shrink-0"></span>
-              <span>Parking is available on-site<br /><span className="text-sm font-normal text-[#789568]">มีที่จอดรถในบริเวณงาน</span></span>
+              <span>Parking is available on-site<br /><span className="text-sm font-normal text-[#789568]">มีที่จอดรถภายในบริเวณงาน</span></span>
             </li>
             <li className="flex items-start gap-3">
               <span className="w-2 h-2 rounded-full bg-[#789568] mt-2 flex-shrink-0"></span>
-              <span>We can&apos;t wait to celebrate with you!<br /><span className="text-sm font-normal text-[#789568]">เราตั้งตารอที่จะได้ฉลองกับทุกคน</span></span>
+              <span>We can&apos;t wait to celebrate with you!<br /><span className="text-sm font-normal text-[#789568]">แล้วพบกันในวันงานนะคะ</span></span>
             </li>
           </ul>
         </div>
@@ -149,10 +149,10 @@ export default function SchedulePage() {
           <p className="font-serif text-lg text-[#536B3E] font-light tracking-wide mb-6">2 HEARTS · 1 JOURNEY</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="/rsvp" className="px-10 py-3 bg-gradient-to-r from-[#789568] to-[#536B3E] text-white font-serif font-bold rounded-full shadow-lg hover:from-[#536B3E] hover:to-[#3a4d2e] transition-all">
-              RSVP / ยืนยันการเข้าร่วม
+              RSVP / ตอบรับเข้าร่วมงาน
             </Link>
             <a href="https://maps.app.goo.gl/rggfEtMGCi5gQyty5" target="_blank" rel="noopener noreferrer" className="px-10 py-3 border-2 border-[#789568] text-[#789568] font-serif font-bold rounded-full hover:bg-[#789568] hover:text-white transition-all">
-              Map / ดูแผนที่
+              Map / แผนที่
             </a>
           </div>
         </div>

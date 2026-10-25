@@ -48,7 +48,7 @@ export default function ContactButton() {
                 </div>
                 <div>
                   <p className="font-serif font-bold text-[#536B3E]">062-556-3261</p>
-                  <p className="font-serif text-xs text-[#789568]">เจ้าสาว (ปาน)</p>
+                  <p className="font-serif text-xs text-[#789568]">เจ้าสาว (ป่าน)</p>
                 </div>
               </a>
 
@@ -77,7 +77,7 @@ export default function ContactButton() {
               <p className="font-serif text-xs text-[#789568] text-center leading-relaxed">
                 THE WEDDING LOUNGE
                 <br />
-                พูดคุย ถามทาง และอัปเดตข่าวสารงานแต่ง
+                ติดตามข่าวสารและสอบถามการเดินทาง
               </p>
             </div>
           </div>
