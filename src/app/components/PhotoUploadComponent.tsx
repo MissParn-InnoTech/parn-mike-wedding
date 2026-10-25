@@ -95,7 +95,7 @@ export default function PhotoUploadComponent() {
 
   const handleSubmit = async () => {
     if (formData.files.length === 0) {
-      alert('กรุณาเลือกรูปภาพก่อน')
+      alert('กรุณาเลือกรูปภาพอย่างน้อย 1 รูป')
       return
     }
 
@@ -126,7 +126,7 @@ export default function PhotoUploadComponent() {
       }
 
       setUploadStatus('success')
-      alert('อัพโหลดรูปสำเร็จ! ขอบคุณค่ะ 💚')
+      alert('ส่งรูปเรียบร้อยแล้ว ขอบคุณมากค่ะ 💚')
       setFormData({
         senderName: '',
         wishingMessage: '',
@@ -135,7 +135,7 @@ export default function PhotoUploadComponent() {
     } catch (error) {
       console.error('Upload error:', error)
       setUploadStatus('error')
-      alert('เกิดข้อผิดพลาดในการอัพโหลด กรุณาลองอีกครั้ง')
+      alert('ส่งรูปไม่สำเร็จ กรุณาลองใหม่อีกครั้งนะคะ')
     } finally {
       setIsUploading(false)
     }
@@ -159,7 +159,7 @@ export default function PhotoUploadComponent() {
           className="w-full bg-[#789568] hover:bg-[#536B3E] disabled:bg-gray-400 text-white font-bold py-6 px-4 rounded-lg mb-4 transition duration-200 flex items-center justify-center gap-3 text-lg"
         >
           <Upload size={28} />
-          กดเพื่อเลือกรูปภาพ / ถ่ายรูป
+          เลือกรูปภาพ หรือถ่ายรูป
         </button>
 
         <div
@@ -173,7 +173,7 @@ export default function PhotoUploadComponent() {
             หรือลากรูปมาวางที่นี่
           </p>
           <p className="text-sm text-[#97a889] mt-2">
-            (รองรับ JPG, JPEG, PNG)
+            (รองรับไฟล์ JPG และ PNG)
           </p>
         </div>
       </div>
@@ -196,14 +196,14 @@ export default function PhotoUploadComponent() {
 
         <div>
           <label className="block text-[#536B3E] font-semibold mb-2">
-            คำอวยพร (ตัวเลือก)
+            คำอวยพร (ไม่บังคับ)
           </label>
           <textarea
             value={formData.wishingMessage}
             onChange={(e) =>
               setFormData((prev) => ({ ...prev, wishingMessage: e.target.value }))
             }
-            placeholder="เช่น ขอให้บ่าวสาวมีความสุขตลอดไป 💚"
+            placeholder="เช่น ขอให้รักกันแบบนี้ตลอดไปนะ 💚"
             className="w-full px-4 py-3 border-2 border-[#C9A45C] rounded-lg focus:outline-none focus:border-[#789568] text-[#536B3E] resize-none"
             rows={3}
           />
@@ -213,7 +213,7 @@ export default function PhotoUploadComponent() {
       {formData.files.length > 0 && (
         <div className="mb-8">
           <h3 className="text-[#536B3E] font-bold mb-4">
-            ตัวอย่างรูป ({formData.files.length} รูป)
+            รูปที่เลือก ({formData.files.length} รูป)
           </h3>
 
           <div className="grid grid-cols-3 gap-3 mb-6">
@@ -241,7 +241,7 @@ export default function PhotoUploadComponent() {
           {isUploading && (
             <div className="mb-6">
               <div className="flex justify-between text-sm text-[#789568] mb-2">
-                <span>กำลังอัพโหลด...</span>
+                <span>กำลังส่งรูป...</span>
                 <span>{uploadProgress}%</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2">
@@ -255,13 +255,13 @@ export default function PhotoUploadComponent() {
 
           {uploadStatus === 'success' && (
             <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded mb-4">
-              ✓ อัพโหลดสำเร็จแล้ว!
+              ✓ ส่งรูปเรียบร้อยแล้ว
             </div>
           )}
 
           {uploadStatus === 'error' && (
             <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded mb-4">
-              ✗ เกิดข้อผิดพลาด กรุณาลองอีกครั้ง
+              ✗ ส่งรูปไม่สำเร็จ กรุณาลองใหม่อีกครั้ง
             </div>
           )}
         </div>
@@ -272,11 +272,11 @@ export default function PhotoUploadComponent() {
         disabled={isUploading || formData.files.length === 0}
         className="w-full bg-[#C9A45C] hover:bg-[#B7A286] disabled:bg-gray-400 text-white font-bold py-4 px-6 rounded-lg transition duration-200 text-lg"
       >
-        {isUploading ? `กำลังส่ง... (${uploadProgress}%)` : 'ส่งรูปภาพ (Upload Now)'}
+        {isUploading ? `กำลังส่ง... (${uploadProgress}%)` : 'ส่งรูปภาพ / Upload'}
       </button>
 
       <p className="text-center text-sm text-[#97a889] mt-4">
-        💚 ขอบคุณที่ร่วมแชร์ความสุขของวันพิเศษนี้
+        💚 ขอบคุณที่ช่วยเก็บความทรงจำของวันนี้ให้เรา
       </p>
     </div>
   )

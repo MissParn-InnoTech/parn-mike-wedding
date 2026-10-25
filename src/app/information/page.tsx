@@ -27,13 +27,13 @@ export default function InformationPage() {
             <Info size={32} className="text-[#789568]" />
             Wedding Information
           </h1>
-          <p className="text-[#789568] font-serif text-lg">ข้อมูลงานแต่ง</p>
+          <p className="text-[#789568] font-serif text-lg">รายละเอียดงาน</p>
         </div>
 
         <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-[#789568]/10 mb-8">
           <div className="bg-gradient-to-r from-[#789568] to-[#536B3E] px-8 py-8 text-center text-white">
             <h2 className="font-serif text-2xl font-bold mb-2">Venue / สถานที่</h2>
-            <p className="font-serif text-sm opacity-90">จัดงานที่ไหน</p>
+            <p className="font-serif text-sm opacity-90">สถานที่จัดงาน</p>
           </div>
 
           <div className="p-8 space-y-6">
@@ -48,7 +48,7 @@ export default function InformationPage() {
                   <p className="font-serif text-sm text-[#789568] mb-4">โรงเรียนกระทุ่มแบน "วิเศษสมุทคุณ"</p>
                   <a href="https://maps.app.goo.gl/rggfEtMGCi5gQyty5" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-[#789568] to-[#536B3E] text-white font-serif font-medium rounded-lg hover:from-[#536B3E] hover:to-[#3a4d2e] transition-all">
                     <img src="https://i.postimg.cc/KjrGnGHB/khxng-char-wy-(19).png" alt="Location" className="w-5 h-5 object-contain" />
-                    View on Google Maps / ดูบนแผนที่
+                    View on Google Maps / เปิดแผนที่
                   </a>
                 </div>
               </div>
@@ -58,8 +58,8 @@ export default function InformationPage() {
 
         <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-[#789568]/10 mb-8">
           <div className="bg-gradient-to-r from-[#789568] to-[#536B3E] px-8 py-8 text-center text-white">
-            <h2 className="font-serif text-2xl font-bold mb-2">Schedule / ตารางเวลา</h2>
-            <p className="font-serif text-sm opacity-90">ตารางเวลาในวันงาน</p>
+            <h2 className="font-serif text-2xl font-bold mb-2">Schedule / กำหนดการ</h2>
+            <p className="font-serif text-sm opacity-90">กำหนดการในวันงาน</p>
           </div>
 
           <div className="p-8 space-y-6">
@@ -87,7 +87,7 @@ export default function InformationPage() {
                   <div className="flex items-center gap-2 mb-2">
                     <span className="inline-block px-4 py-1 bg-[#789568]/10 text-[#789568] font-serif font-bold rounded-full text-sm">11:00 AM</span>
                   </div>
-                  <h3 className="font-serif text-xl font-bold text-[#536B3E]">Reception / ลงทะเบียนและฉลอง</h3>
+                  <h3 className="font-serif text-xl font-bold text-[#536B3E]">Reception / ลงทะเบียนและงานเลี้ยงกลางวัน</h3>
                   <p className="font-serif text-sm text-[#789568] mt-1">Lunch Reception</p>
                 </div>
               </div>
@@ -96,7 +96,7 @@ export default function InformationPage() {
             <div className="bg-[#789568]/10 border border-[#789568]/30 rounded-lg p-4">
               <p className="text-sm text-[#536B3E] font-serif flex items-center gap-2">
                 <Clock size={16} className="text-[#789568]" />
-                <strong>โปรดมาถึงสถานที่ก่อนเวลาราว 15-20 นาที</strong> เพื่อให้มีเวลาสำหรับลงทะเบียน
+                <strong>รบกวนมาถึงก่อนเวลาประมาณ 15–20 นาที</strong> เพื่อลงทะเบียนได้ไม่เร่งรีบ
               </p>
             </div>
           </div>
@@ -104,8 +104,8 @@ export default function InformationPage() {
 
         <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-[#789568]/10">
           <div className="bg-gradient-to-r from-[#789568] to-[#536B3E] px-8 py-8 text-center text-white">
-            <h2 className="font-serif text-2xl font-bold mb-2">Contact / ติดต่อ</h2>
-            <p className="font-serif text-sm opacity-90">ข้อมูลติดต่อจัดงาน</p>
+            <h2 className="font-serif text-2xl font-bold mb-2">Contact / ติดต่อเรา</h2>
+            <p className="font-serif text-sm opacity-90">สอบถามรายละเอียดเพิ่มเติม</p>
           </div>
 
           <div className="p-8 space-y-6">
@@ -121,7 +121,7 @@ export default function InformationPage() {
                   </div>
                   <div>
                     <p className="font-serif font-bold text-[#536B3E]">062-556-3261</p>
-                    <p className="font-serif text-sm text-[#789568]">เจ้าสาว (Parn)</p>
+                    <p className="font-serif text-sm text-[#789568]">เจ้าสาว (ป่าน)</p>
                   </div>
                 </a>
 
@@ -131,7 +131,7 @@ export default function InformationPage() {
                   </div>
                   <div>
                     <p className="font-serif font-bold text-[#536B3E]">089-524-1646</p>
-                    <p className="font-serif text-sm text-[#789568]">เจ้าบ่าว (Mike)</p>
+                    <p className="font-serif text-sm text-[#789568]">เจ้าบ่าว (ไมค์)</p>
                   </div>
                 </a>
               </div>
@@ -140,7 +140,7 @@ export default function InformationPage() {
             <div>
               <h3 className="font-serif text-lg font-bold text-[#536B3E] mb-4 flex items-center gap-2">
                 <img src="https://cdn-icons-png.flaticon.com/256/739/739144.png" alt="LINE" className="w-6 h-6 object-contain" />
-                LINE OpenChat / ไลน์โอเพนแชท
+                LINE OpenChat / กลุ่มไลน์
               </h3>
               <a href="https://line.me/ti/g2/E0FCGaQ7sQEvrWL4dVANeuzHaQTFgsYquTETpw?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 bg-gradient-to-r from-[#F5EBD2]/50 to-white rounded-xl border border-[#789568]/20 hover:shadow-lg transition-all">
                 <div className="w-14 h-14 rounded-full bg-[#789568]/10 flex items-center justify-center flex-shrink-0">
@@ -148,7 +148,7 @@ export default function InformationPage() {
                 </div>
                 <div>
                   <p className="font-serif font-bold text-[#536B3E]">PARN ♡ MIKE | THE WEDDING LOUNGE</p>
-                  <p className="font-serif text-sm text-[#789568] mt-1">เข้าร่วมกลุ่มแชทของเรา</p>
+                  <p className="font-serif text-sm text-[#789568] mt-1">ติดตามข่าวสารและสอบถามการเดินทาง</p>
                 </div>
               </a>
             </div>
@@ -156,7 +156,7 @@ export default function InformationPage() {
             <div>
               <h3 className="font-serif text-lg font-bold text-[#536B3E] mb-4 flex items-center gap-2">
                 <img src="https://i.postimg.cc/NjPdg1jR/khxng-char-wy-(20).png" alt="Website" className="w-6 h-6 object-contain" />
-                Visit Our Website / เว็บไซต์ของเรา
+                Visit Our Website / เว็บไซต์งานแต่ง
               </h3>
               <a href="https://parn-mike-wedding.netlify.app" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 bg-gradient-to-r from-[#F5EBD2]/50 to-white rounded-xl border border-[#789568]/20 hover:shadow-lg transition-all">
                 <div className="w-14 h-14 rounded-full bg-[#789568]/10 flex items-center justify-center flex-shrink-0">
@@ -172,20 +172,20 @@ export default function InformationPage() {
             <div className="bg-[#C9A45C]/10 border-2 border-[#C9A45C]/30 rounded-2xl p-6">
               <h4 className="font-serif font-bold text-[#536B3E] mb-3 flex items-center gap-2">
                 <Lightbulb size={20} className="text-[#C9A45C]" />
-                Helpful Tips / คำแนะนำ
+                Helpful Tips / ข้อแนะนำสำหรับแขก
               </h4>
               <ul className="font-serif text-sm text-[#536B3E] space-y-2">
                 <li className="flex items-start gap-2">
                   <span className="text-[#789568] mt-1">✓</span>
-                  <span>มาถึงก่อนเวลาเพื่อมีเวลาสำหรับลงทะเบียน</span>
+                  <span>เผื่อเวลามาถึงก่อนสักเล็กน้อยสำหรับลงทะเบียน</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-[#789568] mt-1">✓</span>
-                  <span>มีที่จอดรถและความสะดวกอื่น ๆ ในสถานที่</span>
+                  <span>มีที่จอดรถภายในบริเวณงาน</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-[#789568] mt-1">✓</span>
-                  <span>ขอบคุณที่เข้าร่วมฉลองวันพิเศษนี้ไปกับเรา</span>
+                  <span>ขอบคุณที่มาร่วมเป็นส่วนหนึ่งของวันสำคัญของเรา</span>
                 </li>
               </ul>
             </div>

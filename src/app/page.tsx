@@ -126,8 +126,8 @@ function PhotoGallery() {
   return (
     <section className="pt-16">
       <style>{'.pm-strip::-webkit-scrollbar{display:none}'}</style>
-      <h2 className="text-center font-serif text-3xl font-bold text-[#536B3E] mb-2 px-4">Our Gallery / แกลเลอรีภาพถ่าย</h2>
-      <p className="text-center font-serif text-sm text-[#789568] mb-8 px-4">Pre-Wedding Moments · ช่วงเวลาแห่งความทรงจำของเรา</p>
+      <h2 className="text-center font-serif text-3xl font-bold text-[#536B3E] mb-2 px-4">Our Gallery / ภาพความทรงจำ</h2>
+      <p className="text-center font-serif text-sm text-[#789568] mb-8 px-4">Pre-Wedding Moments · เรื่องราวของเราสองคน</p>
       <div
         ref={stripRef}
         className="pm-strip overflow-x-auto overflow-y-hidden py-4"
@@ -222,13 +222,13 @@ export default function Home() {
           {/* Invitation */}
           <div>
             <h1 className="text-[#536B3E] font-serif text-3xl md:text-4xl font-bold">We&apos;re Getting Married</h1>
-            <p className="text-[#536B3E] font-serif text-base mt-2">ขอเชิญร่วมเป็นเกียรติในงานมงคลสมรสของเรา</p>
+            <p className="text-[#536B3E] font-serif text-base mt-2">ขอเรียนเชิญร่วมเป็นเกียรติในงานมงคลสมรสของเรา</p>
           </div>
 
           {/* Date & Venue */}
           <div className="bg-white/90 backdrop-blur rounded-3xl px-6 py-6 shadow-lg max-w-md mx-auto">
             <p className="text-[#536B3E] font-serif text-xl md:text-2xl font-bold">Sunday, 6 December 2026</p>
-            <p className="text-[#789568] font-serif text-sm mt-1">วันอาทิตย์ที่ 6 ธันวาคม 2569 · เริ่ม 07:09 น.</p>
+            <p className="text-[#789568] font-serif text-sm mt-1">วันอาทิตย์ที่ 6 ธันวาคม 2569 · ตั้งแต่เวลา 07.09 น.</p>
             <div className="w-12 h-px bg-[#C9A45C] mx-auto my-4"></div>
             <p className="text-[#536B3E] font-serif font-semibold">The School Auditorium</p>
             <p className="text-[#789568] font-serif text-sm mt-1">โรงเรียนกระทุ่มแบน &quot;วิเศษสมุทคุณ&quot;</p>
@@ -239,10 +239,10 @@ export default function Home() {
           {/* Actions */}
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="/rsvp" className="px-10 py-3 bg-white text-[#536B3E] font-serif font-bold rounded-full shadow-lg hover:bg-[#F5EBD2] transition-all">
-              RSVP / ยืนยันการเข้าร่วม
+              RSVP / ตอบรับเข้าร่วมงาน
             </Link>
             <a href="https://maps.app.goo.gl/rggfEtMGCi5gQyty5" target="_blank" rel="noopener noreferrer" className="px-10 py-3 border-2 border-white text-white font-serif font-bold rounded-full hover:bg-white/15 transition-all">
-              Map / ดูแผนที่
+              Map / แผนที่
             </a>
           </div>
         </div>
@@ -254,8 +254,8 @@ export default function Home() {
       <section className="max-w-4xl mx-auto px-4 pt-16">
         <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-[#789568]/10">
           <div className="bg-gradient-to-r from-[#789568] to-[#536B3E] px-8 py-8 text-center text-white">
-            <h2 className="font-serif text-2xl font-bold mb-2 text-white">Wedding Card / การ์ดแต่งงาน</h2>
-            <p className="font-serif text-sm text-white opacity-90">เปิดอ่านการ์ดเชิญของเรา</p>
+            <h2 className="font-serif text-2xl font-bold mb-2 text-white">Wedding Card / การ์ดเชิญ</h2>
+            <p className="font-serif text-sm text-white opacity-90">เปิดชมการ์ดเชิญงานแต่งของเรา</p>
           </div>
 
           <div className="p-4 sm:p-8">
@@ -271,7 +271,7 @@ export default function Home() {
 
             <div className="text-center mt-6">
               <a href="https://simplebooklet.com/pmweddingcard" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-[#789568] to-[#536B3E] text-white font-serif font-medium rounded-lg hover:from-[#536B3E] hover:to-[#3a4d2e] transition-all">
-                เปิดการ์ดเต็มจอ / Open Full Screen
+                ดูแบบเต็มจอ / Open Full Screen
               </a>
             </div>
           </div>
@@ -290,7 +290,7 @@ export default function Home() {
               <div className="p-4 sm:p-6 text-center">
                 <h3 className="font-serif text-lg sm:text-xl font-bold text-[#536B3E] mb-2">RSVP</h3>
                 <p className="text-[#789568] font-serif text-sm">Confirm Your Attendance</p>
-                <p className="text-[#789568] font-serif text-sm">ยืนยันการเข้าร่วม</p>
+                <p className="text-[#789568] font-serif text-sm">ตอบรับเข้าร่วมงาน</p>
               </div>
             </div>
           </Link>
@@ -304,7 +304,7 @@ export default function Home() {
               <div className="p-4 sm:p-6 text-center">
                 <h3 className="font-serif text-lg sm:text-xl font-bold text-[#536B3E] mb-2">Photos</h3>
                 <p className="text-[#789568] font-serif text-sm">Our Memories</p>
-                <p className="text-[#789568] font-serif text-sm">ความทรงจำของเรา</p>
+                <p className="text-[#789568] font-serif text-sm">อัลบั้มภาพในงาน</p>
               </div>
             </div>
           </Link>
@@ -318,7 +318,7 @@ export default function Home() {
               <div className="p-4 sm:p-6 text-center">
                 <h3 className="font-serif text-lg sm:text-xl font-bold text-[#536B3E] mb-2">Information</h3>
                 <p className="text-[#789568] font-serif text-sm">Wedding Details</p>
-                <p className="text-[#789568] font-serif text-sm">รายละเอียด</p>
+                <p className="text-[#789568] font-serif text-sm">รายละเอียดงาน</p>
               </div>
             </div>
           </Link>
@@ -332,7 +332,7 @@ export default function Home() {
               <div className="p-4 sm:p-6 text-center">
                 <h3 className="font-serif text-lg sm:text-xl font-bold text-[#536B3E] mb-2">Wishes & Gift</h3>
                 <p className="text-[#789568] font-serif text-sm">Send Your Wishes Online</p>
-                <p className="text-[#789568] font-serif text-sm">อวยพรและช่วยงานออนไลน์</p>
+                <p className="text-[#789568] font-serif text-sm">ส่งคำอวยพรและร่วมแสดงความยินดี</p>
               </div>
             </div>
           </Link>
@@ -342,7 +342,7 @@ export default function Home() {
       {/* Wedding Timeline */}
       <section className="max-w-4xl mx-auto px-4 py-16">
         <h2 className="text-center font-serif text-3xl font-bold text-[#536B3E] mb-12">
-          Our Wedding Day Timeline / ตารางเวลาในวันงาน
+          Our Wedding Day Timeline / กำหนดการ
         </h2>
         <p className="text-center font-serif text-sm text-[#789568] -mt-8 mb-10">Sunday, 6 December 2026 · วันอาทิตย์ที่ 6 ธันวาคม 2569</p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -381,7 +381,7 @@ export default function Home() {
                 <img src="https://i.postimg.cc/MHky4HHw/khxng-char-wy-(7).png" alt="Celebration" className="w-12 h-12 object-contain" />
               </div>
               <div>
-                <h3 className="font-serif text-lg font-bold text-[#536B3E]">Celebration / ฉลองร่วมกัน</h3>
+                <h3 className="font-serif text-lg font-bold text-[#536B3E]">Celebration / รดน้ำสังข์และงานเลี้ยง</h3>
                 <p className="text-[#789568] font-serif text-sm">09:09 AM - 11:00 AM</p>
               </div>
             </div>
@@ -402,7 +402,7 @@ export default function Home() {
               <div className="p-6 text-center">
                 <h3 className="font-serif text-2xl font-bold text-[#536B3E] mb-2">Schedule</h3>
                 <p className="text-[#789568] font-serif">See the detailed timeline</p>
-                <p className="text-[#789568] font-serif text-sm">ดูตารางเวลาโดยละเอียด</p>
+                <p className="text-[#789568] font-serif text-sm">ดูกำหนดการทั้งหมด</p>
               </div>
             </div>
           </Link>
@@ -416,7 +416,7 @@ export default function Home() {
               <div className="p-6 text-center">
                 <h3 className="font-serif text-2xl font-bold text-[#536B3E] mb-2">Share Photos</h3>
                 <p className="text-[#789568] font-serif">Upload your memories</p>
-                <p className="text-[#789568] font-serif text-sm">แชร์ความทรงจำของคุณ</p>
+                <p className="text-[#789568] font-serif text-sm">ส่งภาพถ่ายในงานให้เรา</p>
               </div>
             </div>
           </Link>
@@ -427,10 +427,10 @@ export default function Home() {
       <section className="max-w-2xl mx-auto px-4 py-12 text-center">
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link href="/rsvp" className="px-12 py-4 bg-gradient-to-r from-[#789568] to-[#536B3E] text-white font-serif font-bold rounded-full hover:from-[#536B3E] hover:to-[#3a4d2e] shadow-lg transition-all">
-            RSVP Now / ยืนยันเลย
+            RSVP Now / ตอบรับเลย
           </Link>
           <Link href="/upload" className="px-12 py-4 bg-white border-2 border-[#789568] text-[#789568] font-serif font-bold rounded-full hover:bg-[#789568] hover:text-white shadow-lg transition-all">
-            Share Photo / แชร์รูป
+            Share Photos / ส่งภาพถ่าย
           </Link>
         </div>
       </section>

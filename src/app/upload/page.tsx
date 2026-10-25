@@ -30,7 +30,7 @@ export default function UploadPage() {
             📸 Share Your Moments
           </h1>
           <p className="text-white font-serif text-lg">
-            ร่วมแชร์ความทรงจำในงานแต่งงานของเรา
+            ฝากส่งภาพสวย ๆ ในงานให้เราเก็บไว้เป็นความทรงจำนะคะ
           </p>
         </div>
       </div>
