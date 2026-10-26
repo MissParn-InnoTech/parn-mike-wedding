@@ -5,6 +5,9 @@ import Link from 'next/link'
 
 const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyOiQU2Xer4JJDQPoxQnv4t_neKe3r6fnxJhbVefvSXSS9UupJ0Ncqg_b3G0i1uKfWkog/exec'
 
+// แขกที่ไม่สะดวกมาร่วมงาน จะถูกพาไปหน้าฝากคำอวยพรออนไลน์
+const WISHES_URL = 'https://parn-mike-wedding.netlify.app'
+
 export default function RSVPPage() {
   const [loading, setLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
@@ -37,6 +40,13 @@ export default function RSVPPage() {
 
       setSubmitted(true)
       setFormData({ full_name: '', phone: '', party_size: '1' })
+
+      if (!isAttending) {
+        // ไม่สะดวกมาร่วมงาน → ไปหน้าฝากคำอวยพรต่อทันที
+        window.location.href = WISHES_URL
+        return
+      }
+
       alert('ได้รับคำตอบรับเรียบร้อยแล้ว ขอบคุณมากค่ะ 💚')
 
     } catch (err: any) {
