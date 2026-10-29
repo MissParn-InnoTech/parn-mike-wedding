@@ -141,15 +141,15 @@ export default function SchedulePage() {
             </li>
             <li className="flex items-start gap-3">
               <span className="w-2 h-2 rounded-full bg-[#789568] mt-2 flex-shrink-0"></span>
-              <span>Snacks &amp; drinks after the Khan Maak procession<br /><span className="text-sm font-normal text-[#789568]">มีซุ้มของว่างและเครื่องดื่มบริการหลังแห่ขันหมาก ไม่ต้องรีบทานมาจากบ้านนะคะ</span></span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="w-2 h-2 rounded-full bg-[#789568] mt-2 flex-shrink-0"></span>
-              <span>Parking is available on-site<br /><span className="text-sm font-normal text-[#789568]">มีที่จอดรถภายในบริเวณงาน</span></span>
+              <span>Snacks &amp; drinks after the Khan Maak procession<br /><span className="text-sm font-normal text-[#789568]">มีซุ้มของว่างและเครื่องดื่มบริการหลังแห่ขันหมาก ไม่ต้องกังวลเรื่องอาหารเช้านะคะ</span></span>
             </li>
             <li className="flex items-start gap-3">
               <span className="w-2 h-2 rounded-full bg-[#789568] mt-2 flex-shrink-0"></span>
               <span>Games &amp; lucky draw at the lunch party<br /><span className="text-sm font-normal text-[#789568]">มีเกมและจับรางวัลในงานเลี้ยง ลุ้น Smart Watch ลำโพง Aiwa และอีกหลายรางวัล</span></span>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="w-2 h-2 rounded-full bg-[#789568] mt-2 flex-shrink-0"></span>
+              <span>Parking is available on-site<br /><span className="text-sm font-normal text-[#789568]">มีที่จอดรถภายในบริเวณงาน</span></span>
             </li>
             <li className="flex items-start gap-3">
               <span className="w-2 h-2 rounded-full bg-[#789568] mt-2 flex-shrink-0"></span>
