@@ -18,6 +18,13 @@ export default function SchedulePage() {
       description: 'Traditional Thai Wedding Procession',
       icon: 'https://i.postimg.cc/cCnNx90p/khxng-char-wy-(9).png'
     },
+    {
+      time: '08:50',
+      activity: 'Snack & Drinks Break',
+      activityTH: 'พักทานของว่างและเครื่องดื่ม',
+      description: 'Light bites and drinks before the water blessing',
+      icon: 'https://i.postimg.cc/MHky4HHw/khxng-char-wy-(7).png'
+    },
     { 
       time: '09:09', 
       activity: 'Water Blessing Ceremony',
@@ -134,9 +141,13 @@ export default function SchedulePage() {
             </li>
             <li className="flex items-start gap-3">
               <span className="w-2 h-2 rounded-full bg-[#789568] mt-2 flex-shrink-0"></span>
-              <span>Parking is available on-site<br /><span className="text-sm font-normal text-[#789568]">มีที่จอดรถภายในบริเวณงาน</span></span>
+              <span>Snacks &amp; drinks after the Khan Maak procession<br /><span className="text-sm font-normal text-[#789568]">มีซุ้มของว่างและเครื่องดื่มบริการหลังแห่ขันหมาก ไม่ต้องรีบทานมาจากบ้านนะคะ</span></span>
             </li>
             <li className="flex items-start gap-3">
+              <span className="w-2 h-2 rounded-full bg-[#789568] mt-2 flex-shrink-0"></span>
+              <span>Parking is available on-site<br /><span className="text-sm font-normal text-[#789568]">มีที่จอดรถภายในบริเวณงาน</span></span>
+            </li>
+            <li className="flex items-start gap-3 md:col-span-2 md:justify-center">
               <span className="w-2 h-2 rounded-full bg-[#789568] mt-2 flex-shrink-0"></span>
               <span>We can&apos;t wait to celebrate with you!<br /><span className="text-sm font-normal text-[#789568]">แล้วพบกันในวันงานนะคะ</span></span>
             </li>
