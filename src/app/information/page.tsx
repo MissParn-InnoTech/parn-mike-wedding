@@ -158,13 +158,13 @@ export default function InformationPage() {
                 <img src="https://i.postimg.cc/NjPdg1jR/khxng-char-wy-(20).png" alt="Website" className="w-6 h-6 object-contain" />
                 Visit Our Website / เว็บไซต์งานแต่ง
               </h3>
-              <a href="https://parn-mike-wedding.netlify.app" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 bg-gradient-to-r from-[#F5EBD2]/50 to-white rounded-xl border border-[#789568]/20 hover:shadow-lg transition-all">
+              <a href="/wishes" className="flex items-center gap-4 p-4 bg-gradient-to-r from-[#F5EBD2]/50 to-white rounded-xl border border-[#789568]/20 hover:shadow-lg transition-all">
                 <div className="w-14 h-14 rounded-full bg-[#789568]/10 flex items-center justify-center flex-shrink-0">
                   <img src="https://i.postimg.cc/NjPdg1jR/khxng-char-wy-(20).png" alt="Website Icon" className="w-10 h-10 object-contain" />
                 </div>
                 <div>
-                  <p className="font-serif font-bold text-[#536B3E]">parn-mike-wedding.netlify.app</p>
-                  <p className="font-serif text-sm text-[#789568]">https://parn-mike-wedding.netlify.app</p>
+                  <p className="font-serif font-bold text-[#536B3E]">Wishes &amp; Gift / ส่งคำอวยพรและร่วมแสดงความยินดี</p>
+                  <p className="font-serif text-sm text-[#789568]">parn-mike-wedding.vercel.app/wishes</p>
                 </div>
               </a>
             </div>
