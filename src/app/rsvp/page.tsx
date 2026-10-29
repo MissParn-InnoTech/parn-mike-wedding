@@ -72,7 +72,7 @@ export default function RSVPPage() {
 
       <div className="max-w-2xl mx-auto px-4 py-16">
         <h1 className="text-4xl font-serif font-bold text-[#536B3E] text-center mb-2">RSVP</h1>
-        <p className="text-center text-[#789568] mb-12">รบกวนตอบรับภายในวันที่ 15 พฤศจิกายน 2569 เพื่อให้เราเตรียมการต้อนรับได้อย่างเหมาะสม</p>
+        <p className="text-center text-[#789568] mb-12">รบกวนตอบรับภายในวันที่ 15 พฤศจิกายน 2569 เพื่อให้เราเตรียมการต้อนรับได้อย่างเหมาะสม<br /><span className="inline-block mt-3 px-4 py-1.5 rounded-full bg-[#C9A45C]/15 text-[#536B3E] text-sm">🎁 ตอบรับว่ามาร่วมงาน มีสิทธิ์ลุ้น Smart Watch, ลำโพง Aiwa และรางวัลอื่น ๆ ในงานเลี้ยง</span></p>
 
         <div className="bg-white rounded-3xl shadow-xl p-8 border border-[#789568]/10">
           <form onSubmit={handleSubmit} className="space-y-6">
