@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react'
 import { Upload, X } from 'lucide-react'
+import { compressImage, postToSheet } from '@/lib/sheet'
 
 interface UploadedFile {
   file: File
@@ -111,15 +112,12 @@ export default function PhotoUploadComponent() {
     try {
       const totalFiles = formData.files.length
       for (let i = 0; i < totalFiles; i++) {
-        const fileFormData = new FormData()
-        fileFormData.append('file', formData.files[i].file)
-        fileFormData.append('senderName', formData.senderName)
-        fileFormData.append('wishingMessage', formData.wishingMessage)
-        fileFormData.append('uploadedAt', new Date().toISOString())
-
-        await fetch('/api/upload', {
-          method: 'POST',
-          body: fileFormData,
+        const image = await compressImage(formData.files[i].file, 1920, 0.85)
+        await postToSheet({
+          action: 'photo',
+          senderName: formData.senderName.trim(),
+          wishingMessage: formData.wishingMessage.trim(),
+          image,
         })
 
         setUploadProgress(Math.round(((i + 1) / totalFiles) * 100))

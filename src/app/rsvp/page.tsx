@@ -3,8 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import GiftWishes from '@/components/GiftWishes'
-
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyOiQU2Xer4JJDQPoxQnv4t_neKe3r6fnxJhbVefvSXSS9UupJ0Ncqg_b3G0i1uKfWkog/exec'
+import { postToSheet } from '@/lib/sheet'
 
 export default function RSVPPage() {
   const [loading, setLoading] = useState(false)
@@ -27,17 +26,14 @@ export default function RSVPPage() {
       setLoading(true)
 
       const payload = {
+        action: 'rsvp',
         full_name: formData.full_name,
         phone: formData.phone || '',
         rsvp_status: isAttending ? 'confirmed' : 'declined',
         party_size: isAttending ? parseInt(formData.party_size) : 0,
       }
 
-      await fetch(GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        body: JSON.stringify(payload),
-        mode: 'no-cors'
-      })
+      await postToSheet(payload)
 
       setSubmitted(true)
       if (isAttending) {
