@@ -169,7 +169,7 @@ export default function RSVPPage() {
           aria-modal="true"
           aria-labelledby="gift-title"
           onClick={() => setShowGift(false)}
-          className="fixed inset-0 z-50 flex items-start sm:items-center justify-center bg-[#3c4b2d]/60 p-4 overflow-y-auto"
+          className="fixed inset-0 z-50 flex items-start justify-center bg-[#3c4b2d]/60 p-4 overflow-y-auto overscroll-contain"
         >
           <div
             onClick={(e) => e.stopPropagation()}
