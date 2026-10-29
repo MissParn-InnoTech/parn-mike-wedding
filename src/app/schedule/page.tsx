@@ -125,39 +125,6 @@ export default function SchedulePage() {
           </div>
         </div>
 
-        {/* Prizes */}
-        <div className="bg-white rounded-3xl shadow-lg border border-[#C9A45C]/40 overflow-hidden mb-8">
-          <div className="h-1.5 bg-gradient-to-r from-[#789568] to-[#C9A45C]"></div>
-          <div className="p-6 sm:p-8 text-center">
-            <p className="text-3xl mb-2">🎁</p>
-            <p className="text-[#C9A45C] font-serif font-semibold tracking-[0.2em] text-xs mb-2">LUCKY DRAW · ลุ้นรางวัล</p>
-            <h2 className="font-serif text-2xl font-bold text-[#536B3E] mb-2">Games &amp; Prizes at the Lunch Party</h2>
-            <p className="font-serif text-[#789568] mb-6">ร่วมสนุกและลุ้นรางวัลในงานเลี้ยงช่วงกลางวัน อยู่สนุกด้วยกันจนจบงานนะคะ</p>
-            <div className="grid grid-cols-3 gap-3 max-w-md mx-auto mb-6">
-              <div className="bg-[#F5EBD2]/60 rounded-2xl px-2 py-4">
-                <p className="text-2xl mb-1">⌚</p>
-                <p className="font-serif font-bold text-[#536B3E] text-sm">Smart Watch</p>
-                <p className="font-serif text-xs text-[#789568]">2 เรือน</p>
-              </div>
-              <div className="bg-[#F5EBD2]/60 rounded-2xl px-2 py-4">
-                <p className="text-2xl mb-1">🔊</p>
-                <p className="font-serif font-bold text-[#536B3E] text-sm">ลำโพง Aiwa</p>
-                <p className="font-serif text-xs text-[#789568]">1 รางวัล</p>
-              </div>
-              <div className="bg-[#F5EBD2]/60 rounded-2xl px-2 py-4">
-                <p className="text-2xl mb-1">✨</p>
-                <p className="font-serif font-bold text-[#536B3E] text-sm">และอื่น ๆ</p>
-                <p className="font-serif text-xs text-[#789568]">อีกหลายรางวัล</p>
-              </div>
-            </div>
-            <ul className="text-left max-w-md mx-auto space-y-2 font-serif text-sm text-[#536B3E]">
-              <li className="flex items-start gap-3"><span className="w-2 h-2 rounded-full bg-[#C9A45C] mt-1.5 flex-shrink-0"></span><span>ตอบรับผ่านหน้า <Link href="/rsvp" className="font-bold underline decoration-[#C9A45C] underline-offset-2">RSVP</Link> ไว้ก่อน เพื่อมีชื่อร่วมลุ้นจับรางวัล</span></li>
-              <li className="flex items-start gap-3"><span className="w-2 h-2 rounded-full bg-[#C9A45C] mt-1.5 flex-shrink-0"></span><span>ร่วมเล่นเกมและกิจกรรมระหว่างงานเลี้ยง มีรางวัลให้ลุ้นตลอด</span></li>
-              <li className="flex items-start gap-3"><span className="w-2 h-2 rounded-full bg-[#C9A45C] mt-1.5 flex-shrink-0"></span><span>ผู้โชคดีต้องอยู่ในงานตอนประกาศรางวัล ถ้าไม่อยู่จะจับรางวัลใหม่</span></li>
-            </ul>
-          </div>
-        </div>
-
         {/* Good to Know Section */}
         <div className="bg-gradient-to-r from-[#789568]/15 to-[#536B3E]/15 border-2 border-[#789568]/30 rounded-2xl p-6 sm:p-8 mb-8">
           <h2 className="font-serif text-2xl font-bold text-[#536B3E] mb-6 text-center">
@@ -180,7 +147,11 @@ export default function SchedulePage() {
               <span className="w-2 h-2 rounded-full bg-[#789568] mt-2 flex-shrink-0"></span>
               <span>Parking is available on-site<br /><span className="text-sm font-normal text-[#789568]">มีที่จอดรถภายในบริเวณงาน</span></span>
             </li>
-            <li className="flex items-start gap-3 md:col-span-2 md:justify-center">
+            <li className="flex items-start gap-3">
+              <span className="w-2 h-2 rounded-full bg-[#789568] mt-2 flex-shrink-0"></span>
+              <span>Games &amp; lucky draw at the lunch party<br /><span className="text-sm font-normal text-[#789568]">มีเกมและจับรางวัลในงานเลี้ยง ลุ้น Smart Watch ลำโพง Aiwa และอีกหลายรางวัล</span></span>
+            </li>
+            <li className="flex items-start gap-3">
               <span className="w-2 h-2 rounded-full bg-[#789568] mt-2 flex-shrink-0"></span>
               <span>We can&apos;t wait to celebrate with you!<br /><span className="text-sm font-normal text-[#789568]">แล้วพบกันในวันงานนะคะ</span></span>
             </li>
