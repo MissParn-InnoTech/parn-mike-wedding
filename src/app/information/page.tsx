@@ -181,7 +181,19 @@ export default function InformationPage() {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-[#789568] mt-1">✓</span>
+                  <span>แต่งกายโทนครีม ทอง หรือเขียวเซจ มาร่วมฉลองด้วยกัน</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#789568] mt-1">✓</span>
+                  <span>มีซุ้มของว่างและเครื่องดื่มบริการหลังแห่ขันหมาก</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#789568] mt-1">✓</span>
                   <span>มีที่จอดรถภายในบริเวณงาน</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#789568] mt-1">✓</span>
+                  <span>มีเกมและจับรางวัลในงานเลี้ยง ลุ้น Smart Watch ลำโพง Aiwa และอีกหลายรางวัล — ตอบรับ RSVP ไว้ก่อน และอยู่ในงานตอนประกาศรางวัลนะคะ</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-[#789568] mt-1">✓</span>
