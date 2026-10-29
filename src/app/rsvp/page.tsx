@@ -2,12 +2,16 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import GiftWishes from '@/components/GiftWishes'
 
 const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyOiQU2Xer4JJDQPoxQnv4t_neKe3r6fnxJhbVefvSXSS9UupJ0Ncqg_b3G0i1uKfWkog/exec'
 
 export default function RSVPPage() {
   const [loading, setLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [showGift, setShowGift] = useState(false)
+  const [giftName, setGiftName] = useState('')
+  const [giftKey, setGiftKey] = useState(0)
   const [attending, setAttending] = useState<'yes' | 'no'>('yes')
   const [formData, setFormData] = useState({
     full_name: '',
@@ -36,8 +40,14 @@ export default function RSVPPage() {
       })
 
       setSubmitted(true)
+      if (isAttending) {
+        alert('ได้รับคำตอบรับเรียบร้อยแล้ว ขอบคุณมากค่ะ 💚')
+      } else {
+        setGiftName(formData.full_name)
+        setGiftKey((k) => k + 1)
+        setShowGift(true)
+      }
       setFormData({ full_name: '', phone: '', party_size: '1' })
-      alert('ได้รับคำตอบรับเรียบร้อยแล้ว ขอบคุณมากค่ะ 💚')
 
     } catch (err: any) {
       alert('ส่งข้อมูลไม่สำเร็จ กรุณาลองใหม่อีกครั้ง: ' + err.message)
@@ -152,6 +162,31 @@ export default function RSVPPage() {
           </Link>
         </div>
       </div>
+
+      {showGift && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="gift-title"
+          onClick={() => setShowGift(false)}
+          className="fixed inset-0 z-50 flex items-start sm:items-center justify-center bg-[#3c4b2d]/60 p-4 overflow-y-auto"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-sm bg-white rounded-3xl shadow-2xl overflow-hidden my-8"
+          >
+            <button
+              type="button"
+              aria-label="ปิด"
+              onClick={() => setShowGift(false)}
+              className="absolute top-3 right-3 z-10 w-9 h-9 rounded-full bg-white/90 text-[#536B3E] text-xl leading-none shadow"
+            >
+              ×
+            </button>
+            <GiftWishes key={giftKey} defaultName={giftName} onClose={() => setShowGift(false)} />
+          </div>
+        </div>
+      )}
 
       <footer className="bg-gradient-to-r from-[#536B3E] to-[#3a4d2e] text-white py-12 mt-16 border-t border-[#789568]/20">
         <div className="max-w-6xl mx-auto px-4 text-center space-y-3">
