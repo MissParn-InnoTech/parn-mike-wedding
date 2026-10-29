@@ -84,11 +84,14 @@ export default function GiftWishes({ defaultName = '', onClose, onSent }: Props)
       </p>
     </div>
     <div className="px-6 pt-4">
-      <img
-        src="/images/gift-qr.png"
-        alt="QR Code ร่วมแสดงความยินดี บัญชีกสิกรไทย Phitchaphorn"
-        className="w-full rounded-2xl border border-[#789568]/15"
-      />
+      <a href="/images/gift-qr.png" target="_blank" rel="noopener noreferrer" className="block">
+        <img
+          src="/images/gift-qr.png"
+          alt="QR Code ร่วมแสดงความยินดี บัญชีกสิกรไทย Phitchaphorn"
+          className="w-full h-auto rounded-2xl border border-[#789568]/15"
+        />
+      </a>
+      <p className="text-xs text-center text-[#B7A286] mt-2">แตะที่รูปเพื่อดู QR แบบเต็มจอ</p>
     </div>
     <div className="px-6 py-5 space-y-3">
       <div className="flex items-center justify-between gap-3 bg-[#F5EBD2]/60 rounded-xl px-4 py-3">
