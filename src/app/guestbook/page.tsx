@@ -212,10 +212,25 @@ export default function GuestbookPage() {
         </div>
       </nav>
 
-      <main className="max-w-xl mx-auto px-4 py-10">
+      <header className="relative max-w-xl mx-auto">
+        <img
+          src="/images/guestbook-couple.jpg"
+          alt="ป่านและไมค์"
+          className="w-full h-[62vh] min-h-[380px] max-h-[620px] object-cover object-[50%_28%]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-[#F5EBD2]" />
+        <div className="absolute inset-x-0 bottom-0 px-6 pb-2 text-center">
+          <p className="inline-block bg-white/85 backdrop-blur-sm rounded-full px-4 py-1 text-[#C9A45C] font-serif font-semibold tracking-[0.25em] text-xs mb-3">
+            GUESTBOOK · สมุดอวยพร
+          </p>
+          <h1 className="font-serif text-4xl font-bold text-[#536B3E] leading-tight">Parn &amp; Mike</h1>
+          <p className="font-serif tracking-[0.3em] text-sm text-[#789568]">06 · 12 · 2026</p>
+        </div>
+      </header>
+
+      <main className="max-w-xl mx-auto px-4 pt-6 pb-10">
         <div className="text-center mb-8">
-          <p className="text-[#C9A45C] font-serif font-semibold tracking-[0.25em] text-xs mb-2">GUESTBOOK · สมุดอวยพร</p>
-          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#536B3E] mb-2">เขียนการ์ดอวยพร 💌</h1>
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#536B3E] mb-2">เขียนการ์ดอวยพร 💌</h2>
           <p className="font-serif text-[#789568]">เขียนถึงป่านกับไมค์ แปะสติ๊กเกอร์ได้สูงสุด {MAX_STICKERS} ดวง และถ่ายรูปแนบการ์ดได้ด้วยค่ะ</p>
         </div>
 
