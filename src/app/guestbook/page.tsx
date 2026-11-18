@@ -2,11 +2,11 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import Link from 'next/link'
-import { SHEET_SCRIPT_URL, postToSheet } from '@/lib/sheet'
+import { SHEET_SCRIPT_URL, compressImage, postToSheet } from '@/lib/sheet'
 
-// In-venue guestbook: guests write a short wish on a card and decorate it with stickers.
-// Stickers are saved as a last line of emoji in the same "Wishes" tab, so no script change
-// is needed; the wall below reads them back and places them on each card.
+// In-venue guestbook: guests write a short wish on a card, decorate it with stickers and can
+// attach a photo. Stickers are saved as a last line of emoji in the "Wishes" tab; the photo is
+// saved by the Apps Script (v5+) and returned as `photo` so the wall shows a polaroid + card.
 
 const STICKERS = ['💍', '💐', '🥂', '💌', '🎂', '💕', '🌸', '✨', '🕊️', '🍾', '🧸', '🎉', '🌿', '🫶', '💒', '🍰']
 const MAX_STICKERS = 4
@@ -26,7 +26,7 @@ const SPOTS = [
   'bottom-[-14px] right-[-10px] rotate-6',
 ]
 
-type Wish = { name: string; side?: string; message: string }
+type Wish = { name: string; side?: string; message: string; photo?: string }
 
 function splitStickers(message: string) {
   const lines = String(message || '').split('\n')
@@ -55,7 +55,30 @@ function StickerChip({ s, className = '' }: { s: string; className?: string }) {
   )
 }
 
-function WishCard({ name, side, text, stickers, color, big = false }: {
+function Polaroid({ src, big }: { src: string; big?: boolean }) {
+  return (
+    <div className={`relative bg-white p-2.5 pb-9 shadow-lg -rotate-2 ${big ? 'w-56' : 'w-44'} shrink-0 mx-auto`}>
+      <img src={src} alt="รูปจากแขก" className="w-full aspect-[3/4] object-cover bg-[#F5EBD2]" loading="lazy" />
+      <p className="absolute bottom-2.5 left-0 right-0 text-center font-serif text-[11px] tracking-[0.15em] text-[#789568] whitespace-nowrap">
+        P &amp; M · 06·12·2026
+      </p>
+    </div>
+  )
+}
+
+function WishCard(props: {
+  name: string; side?: string; text: string; stickers: string[]; color: { bg: string; edge: string }; big?: boolean; photo?: string
+}) {
+  if (!props.photo) return <NoteCard {...props} />
+  return (
+    <div className="flex flex-col sm:flex-row items-center gap-5">
+      <Polaroid src={props.photo} big={props.big} />
+      <div className="w-full sm:flex-1"><NoteCard {...props} /></div>
+    </div>
+  )
+}
+
+function NoteCard({ name, side, text, stickers, color, big = false }: {
   name: string; side?: string; text: string; stickers: string[]; color: { bg: string; edge: string }; big?: boolean
 }) {
   return (
@@ -85,6 +108,22 @@ export default function GuestbookPage() {
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
   const [wall, setWall] = useState<Wish[]>([])
   const [bigScreen, setBigScreen] = useState(false)
+  const [photo, setPhoto] = useState<string | null>(null)
+  const [photoBusy, setPhotoBusy] = useState(false)
+
+  const pickPhoto = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    e.target.value = ''
+    if (!file) return
+    setPhotoBusy(true)
+    try {
+      setPhoto(await compressImage(file, 1280, 0.82))
+    } catch {
+      alert('ใส่รูปไม่สำเร็จ ลองเลือกรูปใหม่อีกครั้งนะคะ')
+    } finally {
+      setPhotoBusy(false)
+    }
+  }
 
   const loadWall = useCallback(() => {
     fetch(SHEET_SCRIPT_URL)
@@ -112,8 +151,10 @@ export default function GuestbookPage() {
     setStatus('sending')
     const message = picked.length ? `${text.trim()}\n${picked.join(' ')}` : text.trim()
     try {
-      await postToSheet({ action: 'wish', name: name.trim(), side, message })
-      setWall((w) => [{ name: name.trim(), side, message }, ...w])
+      const payload: Record<string, string> = { action: 'wish', name: name.trim(), side, message }
+      if (photo) payload.photo = photo
+      await postToSheet(payload)
+      setWall((w) => [{ name: name.trim(), side, message, photo: photo || undefined }, ...w])
       setStatus('sent')
     } catch {
       setStatus('error')
@@ -123,6 +164,7 @@ export default function GuestbookPage() {
   const again = () => {
     setText('')
     setPicked(['💍', '💕'])
+    setPhoto(null)
     setStatus('idle')
   }
 
@@ -130,7 +172,11 @@ export default function GuestbookPage() {
     <div className={`grid gap-8 ${bigScreen ? 'sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' : 'sm:grid-cols-2'}`}>
       {wall.map((w, i) => {
         const { text: t, stickers } = splitStickers(w.message)
-        return <WishCard key={i} name={w.name} side={w.side} text={t} stickers={stickers} color={colorFor(w.name)} big={bigScreen} />
+        return (
+          <div key={i} className={w.photo ? 'sm:col-span-2' : ''}>
+            <WishCard name={w.name} side={w.side} text={t} stickers={stickers} color={colorFor(w.name)} big={bigScreen} photo={w.photo} />
+          </div>
+        )
       })}
     </div>
   )
@@ -142,7 +188,7 @@ export default function GuestbookPage() {
           <div className="text-center md:text-left">
             <p className="text-[#C9A45C] font-serif tracking-[0.3em] text-sm">PARN &amp; MIKE · 6.12.2026</p>
             <h1 className="font-serif text-4xl md:text-5xl font-bold text-[#536B3E]">Guestbook 💌</h1>
-            <p className="font-serif text-lg text-[#789568]">สแกน QR แล้วเขียนคำอวยพรพร้อมแปะสติ๊กเกอร์ได้เลย</p>
+            <p className="font-serif text-lg text-[#789568]">สแกน QR เขียนคำอวยพร แปะสติ๊กเกอร์ และถ่ายรูปแนบการ์ดได้เลย</p>
           </div>
           <img src="/images/guestbook-qr.png" alt="QR ไปหน้าเขียนคำอวยพร" className="w-40 h-40 rounded-2xl shadow-lg bg-white p-2" />
         </div>
@@ -170,11 +216,11 @@ export default function GuestbookPage() {
         <div className="text-center mb-8">
           <p className="text-[#C9A45C] font-serif font-semibold tracking-[0.25em] text-xs mb-2">GUESTBOOK · สมุดอวยพร</p>
           <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#536B3E] mb-2">เขียนการ์ดอวยพร 💌</h1>
-          <p className="font-serif text-[#789568]">เขียนถึงป่านกับไมค์ แล้วเลือกสติ๊กเกอร์แปะการ์ดได้สูงสุด {MAX_STICKERS} ดวงค่ะ</p>
+          <p className="font-serif text-[#789568]">เขียนถึงป่านกับไมค์ แปะสติ๊กเกอร์ได้สูงสุด {MAX_STICKERS} ดวง และถ่ายรูปแนบการ์ดได้ด้วยค่ะ</p>
         </div>
 
         <div className="px-3 py-4 mb-8">
-          <WishCard name={name.trim()} side={side} text={text} stickers={picked} color={colorFor(name.trim() || 'ป่านไมค์')} />
+          <WishCard name={name.trim()} side={side} text={text} stickers={picked} color={colorFor(name.trim() || 'ป่านไมค์')} photo={photo || undefined} />
         </div>
 
         {status === 'sent' ? (
@@ -207,6 +253,31 @@ export default function GuestbookPage() {
                   )
                 })}
               </div>
+            </div>
+            <div>
+              <p className="block text-sm font-semibold text-[#536B3E] mb-2">แนบรูป <span className="font-normal text-[#B7A286]">(ถ้ามี)</span></p>
+              {photo ? (
+                <div className="flex items-center gap-3">
+                  <img src={photo} alt="รูปที่เลือก" className="w-16 h-20 object-cover rounded-lg border border-[#789568]/20" />
+                  <label className="text-sm text-[#536B3E] underline cursor-pointer">
+                    เปลี่ยนรูป
+                    <input type="file" accept="image/*" onChange={pickPhoto} className="hidden" />
+                  </label>
+                  <button type="button" onClick={() => setPhoto(null)} className="text-sm text-[#B7A286] underline">เอาออก</button>
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 gap-3">
+                  <label className="flex items-center justify-center gap-2 py-3 rounded-xl border-2 border-dashed border-[#C9A45C]/70 text-[#536B3E] font-serif cursor-pointer hover:bg-[#F5EBD2]/60">
+                    📷 ถ่ายรูป
+                    <input type="file" accept="image/*" capture="environment" onChange={pickPhoto} className="hidden" />
+                  </label>
+                  <label className="flex items-center justify-center gap-2 py-3 rounded-xl border-2 border-dashed border-[#C9A45C]/70 text-[#536B3E] font-serif cursor-pointer hover:bg-[#F5EBD2]/60">
+                    🖼️ เลือกจากอัลบั้ม
+                    <input type="file" accept="image/*" onChange={pickPhoto} className="hidden" />
+                  </label>
+                </div>
+              )}
+              {photoBusy && <p className="text-xs text-[#B7A286] mt-1">กำลังเตรียมรูป…</p>}
             </div>
             <div>
               <label htmlFor="gb-text" className="block text-sm font-semibold text-[#536B3E] mb-1">คำอวยพร</label>
@@ -253,7 +324,7 @@ export default function GuestbookPage() {
             {status === 'error' && <p className="text-sm text-red-600">ส่งไม่สำเร็จ ลองใหม่อีกครั้งนะคะ 🙏</p>}
             <button
               type="submit"
-              disabled={status === 'sending'}
+              disabled={status === 'sending' || photoBusy}
               className="w-full py-3 rounded-full bg-gradient-to-r from-[#789568] to-[#536B3E] text-white font-serif font-semibold shadow-lg disabled:opacity-60"
             >
               {status === 'sending' ? 'กำลังส่ง…' : 'ส่งการ์ดอวยพร 💌'}
