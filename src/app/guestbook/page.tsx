@@ -5,8 +5,8 @@ import Link from 'next/link'
 import { SHEET_SCRIPT_URL, compressImage, postToSheet } from '@/lib/sheet'
 
 // In-venue guestbook: guests write a short wish on a card, decorate it with stickers and can
-// attach a photo. Stickers are saved as a last line of emoji in the "Wishes" tab; the photo is
-// saved by the Apps Script (v5+) and returned as `photo` so the wall shows a polaroid + card.
+// attach a photo. The Apps Script (v6+) saves cards to the separate "อวยพรในงาน" sheet, with
+// stickers and the photo in their own columns, and returns `photo` so the wall shows a polaroid.
 
 const STICKERS = ['💍', '💐', '🥂', '💌', '🎂', '💕', '🌸', '✨', '🕊️', '🍾', '🧸', '🎉', '🌿', '🫶', '💒', '🍰']
 const MAX_STICKERS = 4
@@ -126,10 +126,16 @@ export default function GuestbookPage() {
   }
 
   const loadWall = useCallback(() => {
-    fetch(SHEET_SCRIPT_URL)
+    const show = (items: Wish[]) => setWall(items.filter((w) => w && w.name && w.message).slice(0, 80))
+    // v6+ script keeps guestbook cards in their own sheet ("อวยพรในงาน"); older scripts only
+    // have the Wishes tab, so fall back to it.
+    fetch(`${SHEET_SCRIPT_URL}?action=guestbook`)
       .then((r) => r.json())
       .then((d) => {
-        if (d && Array.isArray(d.items)) setWall(d.items.filter((w: Wish) => w && w.name && w.message).slice(0, 60))
+        if (d && d.version >= 6 && Array.isArray(d.items)) return show(d.items)
+        return fetch(SHEET_SCRIPT_URL)
+          .then((r) => r.json())
+          .then((d2) => { if (d2 && Array.isArray(d2.items)) show(d2.items) })
       })
       .catch(() => {})
   }, [])
@@ -151,7 +157,7 @@ export default function GuestbookPage() {
     setStatus('sending')
     const message = picked.length ? `${text.trim()}\n${picked.join(' ')}` : text.trim()
     try {
-      const payload: Record<string, string> = { action: 'wish', name: name.trim(), side, message }
+      const payload: Record<string, string> = { action: 'guestbook', name: name.trim(), side, message }
       if (photo) payload.photo = photo
       await postToSheet(payload)
       setWall((w) => [{ name: name.trim(), side, message, photo: photo || undefined }, ...w])
