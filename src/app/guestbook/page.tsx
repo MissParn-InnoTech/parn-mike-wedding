@@ -1,0 +1,276 @@
+'use client'
+
+import { useCallback, useEffect, useState } from 'react'
+import Link from 'next/link'
+import { SHEET_SCRIPT_URL, postToSheet } from '@/lib/sheet'
+
+// In-venue guestbook: guests write a short wish on a card and decorate it with stickers.
+// Stickers are saved as a last line of emoji in the same "Wishes" tab, so no script change
+// is needed; the wall below reads them back and places them on each card.
+
+const STICKERS = ['💍', '💐', '🥂', '💌', '🎂', '💕', '🌸', '✨', '🕊️', '🍾', '🧸', '🎉', '🌿', '🫶', '💒', '🍰']
+const MAX_STICKERS = 4
+
+const CARD_COLORS = [
+  { bg: '#FFF8EC', edge: '#E9D9B5' }, // cream
+  { bg: '#EEF3E6', edge: '#C9D6B7' }, // sage
+  { bg: '#FCEDEE', edge: '#EFCFD3' }, // blush
+  { bg: '#FBF3DD', edge: '#E8D49A' }, // gold
+  { bg: '#EFF1F7', edge: '#CDD3E4' }, // mist
+]
+
+const SPOTS = [
+  'top-[-14px] right-[-10px] rotate-12',
+  'bottom-[-14px] left-[-10px] -rotate-12',
+  'top-[-14px] left-[-10px] -rotate-6',
+  'bottom-[-14px] right-[-10px] rotate-6',
+]
+
+type Wish = { name: string; side?: string; message: string }
+
+function splitStickers(message: string) {
+  const lines = String(message || '').split('\n')
+  const last = lines[lines.length - 1]?.trim() || ''
+  const tokens = last.split(/\s+/).filter(Boolean)
+  if (lines.length > 1 && tokens.length && tokens.every((t) => STICKERS.includes(t))) {
+    return { text: lines.slice(0, -1).join('\n').trim(), stickers: tokens.slice(0, MAX_STICKERS) }
+  }
+  return { text: String(message || ''), stickers: [] as string[] }
+}
+
+function colorFor(name: string) {
+  let h = 0
+  for (const ch of name) h = (h * 31 + ch.charCodeAt(0)) >>> 0
+  return CARD_COLORS[h % CARD_COLORS.length]
+}
+
+function StickerChip({ s, className = '' }: { s: string; className?: string }) {
+  return (
+    <span
+      className={`inline-flex items-center justify-center w-11 h-11 rounded-full bg-white text-2xl shadow-[0_3px_8px_rgba(83,107,62,0.25)] ring-[3px] ring-white select-none ${className}`}
+      aria-hidden
+    >
+      {s}
+    </span>
+  )
+}
+
+function WishCard({ name, side, text, stickers, color, big = false }: {
+  name: string; side?: string; text: string; stickers: string[]; color: { bg: string; edge: string }; big?: boolean
+}) {
+  return (
+    <div
+      className="relative rounded-2xl p-5 pt-6 shadow-md border-2"
+      style={{ background: color.bg, borderColor: color.edge }}
+    >
+      {stickers.map((s, i) => (
+        <StickerChip key={i} s={s} className={`absolute ${SPOTS[i]}`} />
+      ))}
+      <p className={`font-serif text-[#536B3E] ${big ? 'text-xl' : 'text-base'} leading-relaxed whitespace-pre-line break-words min-h-[3rem]`}>
+        {text || <span className="text-[#B7A286]">คำอวยพรของคุณจะขึ้นตรงนี้…</span>}
+      </p>
+      <p className={`mt-3 text-right font-serif ${big ? 'text-base' : 'text-sm'} text-[#789568]`}>
+        — {name || 'ชื่อของคุณ'}
+        {side && <span className="text-[#B7A286]"> · {side}</span>}
+      </p>
+    </div>
+  )
+}
+
+export default function GuestbookPage() {
+  const [name, setName] = useState('')
+  const [side, setSide] = useState('')
+  const [text, setText] = useState('')
+  const [picked, setPicked] = useState<string[]>(['💍', '💕'])
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
+  const [wall, setWall] = useState<Wish[]>([])
+  const [bigScreen, setBigScreen] = useState(false)
+
+  const loadWall = useCallback(() => {
+    fetch(SHEET_SCRIPT_URL)
+      .then((r) => r.json())
+      .then((d) => {
+        if (d && Array.isArray(d.items)) setWall(d.items.filter((w: Wish) => w && w.name && w.message).slice(0, 60))
+      })
+      .catch(() => {})
+  }, [])
+
+  useEffect(() => {
+    try { setBigScreen(new URLSearchParams(window.location.search).get('screen') === '1') } catch {}
+    loadWall()
+    const t = setInterval(loadWall, 30000)
+    return () => clearInterval(t)
+  }, [loadWall])
+
+  const toggle = (s: string) => {
+    setPicked((p) => (p.includes(s) ? p.filter((x) => x !== s) : p.length >= MAX_STICKERS ? p : [...p, s]))
+  }
+
+  const send = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!name.trim() || !text.trim()) return
+    setStatus('sending')
+    const message = picked.length ? `${text.trim()}\n${picked.join(' ')}` : text.trim()
+    try {
+      await postToSheet({ action: 'wish', name: name.trim(), side, message })
+      setWall((w) => [{ name: name.trim(), side, message }, ...w])
+      setStatus('sent')
+    } catch {
+      setStatus('error')
+    }
+  }
+
+  const again = () => {
+    setText('')
+    setPicked(['💍', '💕'])
+    setStatus('idle')
+  }
+
+  const wallGrid = (
+    <div className={`grid gap-8 ${bigScreen ? 'sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' : 'sm:grid-cols-2'}`}>
+      {wall.map((w, i) => {
+        const { text: t, stickers } = splitStickers(w.message)
+        return <WishCard key={i} name={w.name} side={w.side} text={t} stickers={stickers} color={colorFor(w.name)} big={bigScreen} />
+      })}
+    </div>
+  )
+
+  if (bigScreen) {
+    return (
+      <div className="min-h-screen bg-[#F5EBD2] px-8 py-8"><div className="max-w-7xl mx-auto">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-10">
+          <div className="text-center md:text-left">
+            <p className="text-[#C9A45C] font-serif tracking-[0.3em] text-sm">PARN &amp; MIKE · 6.12.2026</p>
+            <h1 className="font-serif text-4xl md:text-5xl font-bold text-[#536B3E]">Guestbook 💌</h1>
+            <p className="font-serif text-lg text-[#789568]">สแกน QR แล้วเขียนคำอวยพรพร้อมแปะสติ๊กเกอร์ได้เลย</p>
+          </div>
+          <img src="/images/guestbook-qr.png" alt="QR ไปหน้าเขียนคำอวยพร" className="w-40 h-40 rounded-2xl shadow-lg bg-white p-2" />
+        </div>
+        {wall.length ? wallGrid : <p className="text-center font-serif text-[#789568]">รอคำอวยพรแรกอยู่นะคะ 💗</p>}
+      </div></div>
+    )
+  }
+
+  return (
+    <div className="min-h-screen bg-[#F5EBD2]">
+      <nav className="bg-white shadow-sm sticky top-0 z-40 border-b border-[#789568]/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <Link href="/" className="font-serif font-bold text-base sm:text-lg text-[#789568] whitespace-nowrap">PARN & MIKE</Link>
+            <div className="space-x-3 sm:space-x-6 whitespace-nowrap">
+              <Link href="/schedule" className="text-xs sm:text-sm font-serif font-medium text-[#536B3E] hover:text-[#789568]">Schedule</Link>
+              <Link href="/upload" className="text-xs sm:text-sm font-serif font-medium text-[#536B3E] hover:text-[#789568]">Photos</Link>
+              <Link href="/wishes" className="text-xs sm:text-sm font-serif font-medium text-[#536B3E] hover:text-[#789568]">Gift</Link>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <main className="max-w-xl mx-auto px-4 py-10">
+        <div className="text-center mb-8">
+          <p className="text-[#C9A45C] font-serif font-semibold tracking-[0.25em] text-xs mb-2">GUESTBOOK · สมุดอวยพร</p>
+          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#536B3E] mb-2">เขียนการ์ดอวยพร 💌</h1>
+          <p className="font-serif text-[#789568]">เขียนถึงป่านกับไมค์ แล้วเลือกสติ๊กเกอร์แปะการ์ดได้สูงสุด {MAX_STICKERS} ดวงค่ะ</p>
+        </div>
+
+        <div className="px-3 py-4 mb-8">
+          <WishCard name={name.trim()} side={side} text={text} stickers={picked} color={colorFor(name.trim() || 'ป่านไมค์')} />
+        </div>
+
+        {status === 'sent' ? (
+          <div className="bg-white rounded-3xl shadow-xl p-8 text-center border border-[#789568]/10">
+            <p className="text-5xl mb-3">🎉</p>
+            <h2 className="font-serif text-2xl font-bold text-[#536B3E] mb-2">ส่งการ์ดแล้ว ขอบคุณมากนะคะ</h2>
+            <p className="font-serif text-[#789568] mb-6">การ์ดของคุณจะขึ้นบนผนังอวยพรด้านล่างค่ะ</p>
+            <button onClick={again} className="px-8 py-3 rounded-full border-2 border-[#789568] text-[#536B3E] font-serif font-semibold hover:bg-[#789568] hover:text-white transition">
+              เขียนอีกใบ
+            </button>
+          </div>
+        ) : (
+          <form onSubmit={send} className="bg-white rounded-3xl shadow-xl p-6 space-y-5 border border-[#789568]/10">
+            <div>
+              <p className="block text-sm font-semibold text-[#536B3E] mb-2">เลือกสติ๊กเกอร์ <span className="font-normal text-[#B7A286]">({picked.length}/{MAX_STICKERS})</span></p>
+              <div className="grid grid-cols-8 gap-2">
+                {STICKERS.map((s) => {
+                  const on = picked.includes(s)
+                  return (
+                    <button
+                      type="button"
+                      key={s}
+                      onClick={() => toggle(s)}
+                      aria-pressed={on}
+                      aria-label={`สติ๊กเกอร์ ${s}`}
+                      className={`aspect-square rounded-2xl text-2xl flex items-center justify-center transition ${on ? 'bg-[#789568]/15 ring-2 ring-[#789568] scale-105' : 'bg-[#F5EBD2]/60 hover:bg-[#F5EBD2]'}`}
+                    >
+                      {s}
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+            <div>
+              <label htmlFor="gb-text" className="block text-sm font-semibold text-[#536B3E] mb-1">คำอวยพร</label>
+              <textarea
+                id="gb-text"
+                required
+                rows={4}
+                maxLength={300}
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                placeholder="ขอให้รักกันนาน ๆ นะ…"
+                className="w-full px-4 py-3 border-2 border-[#C9A45C]/60 rounded-xl bg-white focus:outline-none focus:border-[#789568] resize-none"
+              />
+              <p className="text-right text-xs text-[#B7A286]">{text.length}/300</p>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="gb-name" className="block text-sm font-semibold text-[#536B3E] mb-1">ชื่อของคุณ</label>
+                <input
+                  id="gb-name"
+                  required
+                  maxLength={60}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="เช่น แนน"
+                  className="w-full px-4 py-3 border-2 border-[#C9A45C]/60 rounded-xl bg-white focus:outline-none focus:border-[#789568]"
+                />
+              </div>
+              <div>
+                <label htmlFor="gb-side" className="block text-sm font-semibold text-[#536B3E] mb-1">เพื่อนฝั่งไหน</label>
+                <select
+                  id="gb-side"
+                  value={side}
+                  onChange={(e) => setSide(e.target.value)}
+                  className="w-full px-4 py-3 border-2 border-[#C9A45C]/60 rounded-xl bg-white focus:outline-none focus:border-[#789568]"
+                >
+                  <option value="">ไม่ระบุ</option>
+                  <option value="ฝั่งเจ้าสาว (ป่าน)">ฝั่งเจ้าสาว (ป่าน)</option>
+                  <option value="ฝั่งเจ้าบ่าว (ไมค์)">ฝั่งเจ้าบ่าว (ไมค์)</option>
+                  <option value="เพื่อนทั้งคู่">เพื่อนทั้งคู่</option>
+                </select>
+              </div>
+            </div>
+            {status === 'error' && <p className="text-sm text-red-600">ส่งไม่สำเร็จ ลองใหม่อีกครั้งนะคะ 🙏</p>}
+            <button
+              type="submit"
+              disabled={status === 'sending'}
+              className="w-full py-3 rounded-full bg-gradient-to-r from-[#789568] to-[#536B3E] text-white font-serif font-semibold shadow-lg disabled:opacity-60"
+            >
+              {status === 'sending' ? 'กำลังส่ง…' : 'ส่งการ์ดอวยพร 💌'}
+            </button>
+          </form>
+        )}
+
+        <section className="mt-14">
+          <h2 className="font-serif text-2xl font-bold text-[#536B3E] text-center mb-1">ผนังอวยพร</h2>
+          <p className="text-center text-sm text-[#789568] mb-8">อัปเดตเองทุก 30 วินาที</p>
+          {wall.length ? wallGrid : <p className="text-center text-sm text-[#789568]">ยังไม่มีการ์ด เป็นคนแรกได้เลยนะคะ 💗</p>}
+        </section>
+
+        <div className="text-center mt-12">
+          <Link href="/" className="text-[#789568] hover:text-[#536B3E] font-semibold underline">← Back to Home</Link>
+        </div>
+      </main>
+    </div>
+  )
+}
