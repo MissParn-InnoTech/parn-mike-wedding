@@ -237,7 +237,7 @@ export default function GuestbookPage() {
       <main className="max-w-xl mx-auto px-4 pt-6 pb-10">
         <div className="text-center mb-8">
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#536B3E] mb-2">เขียนการ์ดอวยพร 💌</h2>
-          <p className="font-serif text-[#789568]">เขียนถึงป่านกับไมค์ แปะสติ๊กเกอร์ได้สูงสุด {MAX_STICKERS} ดวง และถ่ายรูปแนบการ์ดได้ด้วยค่ะ</p>
+          <p className="font-serif text-[#789568]">เขียนถึงป่านกับไมค์ และถ่ายรูปแนบการ์ดได้ด้วยค่ะ</p>
         </div>
 
         <div className="px-3 py-4 mb-8">
@@ -248,7 +248,7 @@ export default function GuestbookPage() {
           <div className="bg-white rounded-3xl shadow-xl p-8 text-center border border-[#789568]/10">
             <p className="text-5xl mb-3">🎉</p>
             <h2 className="font-serif text-2xl font-bold text-[#536B3E] mb-2">ส่งการ์ดแล้ว ขอบคุณมากนะคะ</h2>
-            <p className="font-serif text-[#789568] mb-6">การ์ดของคุณจะขึ้นบนผนังอวยพรด้านล่างค่ะ</p>
+            <p className="font-serif text-[#789568] mb-6">การ์ดของคุณจะขึ้นบน Wishing Wall ด้านล่างค่ะ</p>
             <button onClick={again} className="px-8 py-3 rounded-full border-2 border-[#789568] text-[#536B3E] font-serif font-semibold hover:bg-[#789568] hover:text-white transition">
               เขียนอีกใบ
             </button>
@@ -354,9 +354,9 @@ export default function GuestbookPage() {
         )}
 
         <section className="mt-14">
-          <h2 className="font-serif text-2xl font-bold text-[#536B3E] text-center mb-1">ผนังอวยพร</h2>
-          <p className="text-center text-sm text-[#789568] mb-8">อัปเดตเองทุก 30 วินาที</p>
-          {wall.length ? wallGrid : <p className="text-center text-sm text-[#789568]">ยังไม่มีการ์ด เป็นคนแรกได้เลยนะคะ 💗</p>}
+          <h2 className="font-serif text-2xl font-bold text-[#536B3E] text-center mb-1">Wishing Wall</h2>
+          <p className="text-center text-sm text-[#789568] mb-8">Updates every 30 seconds</p>
+          {wall.length ? wallGrid : <p className="text-center text-sm text-[#789568]">No wishes yet — be the first 💗</p>}
         </section>
 
         <div className="text-center mt-12">
