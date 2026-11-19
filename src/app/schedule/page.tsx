@@ -28,7 +28,7 @@ export default function SchedulePage() {
     { 
       time: '09:09', 
       activity: 'Water Blessing Ceremony',
-      activityTH: 'พิธีรดน้ำสังข์',
+      activityTH: 'พิธีหลั่งน้ำสังข์',
       description: 'A Traditional Thai Wedding Blessing',
       icon: 'https://i.postimg.cc/cCnNx9dS/khxng-char-wy-(10).png'
     },
