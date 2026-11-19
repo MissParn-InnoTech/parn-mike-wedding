@@ -176,7 +176,7 @@ export default function GuestbookPage() {
   }
 
   const wallGrid = (
-    <div className={`grid gap-8 ${bigScreen ? 'sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' : 'sm:grid-cols-2'}`}>
+    <div className={`grid gap-8 ${bigScreen ? 'sm:grid-cols-2 2xl:grid-cols-3' : 'sm:grid-cols-2'}`}>
       {wall.map((w, i) => {
         const { text: t, stickers } = splitStickers(w.message)
         // Alternate photo side by upload order (counted from the oldest) so a card keeps its side
@@ -192,17 +192,24 @@ export default function GuestbookPage() {
 
   if (bigScreen) {
     return (
-      <div className="min-h-screen bg-[#F5EBD2] px-8 py-8"><div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-10">
-          <div className="text-center md:text-left">
-            <p className="text-[#C9A45C] font-serif tracking-[0.3em] text-sm">PARN &amp; MIKE · 6.12.2026</p>
-            <h1 className="font-serif text-4xl md:text-5xl font-bold text-[#536B3E]">Guestbook 💌</h1>
-            <p className="font-serif text-lg text-[#789568]">สแกน QR เขียนคำอวยพร แปะสติ๊กเกอร์ และถ่ายรูปแนบการ์ดได้เลย</p>
-          </div>
-          <img src="/images/guestbook-qr.png" alt="QR ไปหน้าเขียนคำอวยพร" className="w-40 h-40 rounded-2xl shadow-lg bg-white p-2" />
+      <div className="min-h-screen bg-[#F5EBD2] px-8 py-8">
+        <div className="max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-10">
+          <aside className="lg:sticky lg:top-8 self-start text-center">
+            <div className="bg-white p-3 pb-12 shadow-xl -rotate-2 mx-auto w-[260px] relative">
+              <img src="/images/guestbook-couple.jpg" alt="ป่านและไมค์" className="w-full aspect-[3/4] object-cover object-[50%_28%]" />
+              <p className="absolute bottom-3 left-0 right-0 font-serif text-sm tracking-[0.2em] text-[#789568]">06 · 12 · 2026</p>
+            </div>
+            <h1 className="font-serif text-5xl font-bold text-[#536B3E] mt-8 leading-tight">Parn &amp; Mike</h1>
+            <p className="font-serif italic text-xl text-[#789568] mb-6">Wishing Wall 💌</p>
+            <img src="/images/guestbook-qr.svg" alt="QR ไปหน้าเขียนคำอวยพร" className="w-44 h-44 mx-auto rounded-2xl shadow-lg bg-white p-3" />
+            <p className="font-serif font-bold text-lg text-[#536B3E] mt-4">สแกนเขียนการ์ดอวยพร</p>
+            <p className="font-serif text-[#789568]">แปะสติ๊กเกอร์ และถ่ายรูปแนบการ์ดได้เลย</p>
+          </aside>
+          <main>
+            {wall.length ? wallGrid : <p className="text-center font-serif text-xl text-[#789568] mt-20">No wishes yet — be the first 💗</p>}
+          </main>
         </div>
-        {wall.length ? wallGrid : <p className="text-center font-serif text-[#789568]">รอคำอวยพรแรกอยู่นะคะ 💗</p>}
-      </div></div>
+      </div>
     )
   }
 
