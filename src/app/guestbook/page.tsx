@@ -55,9 +55,9 @@ function StickerChip({ s, className = '' }: { s: string; className?: string }) {
   )
 }
 
-function Polaroid({ src, big }: { src: string; big?: boolean }) {
+function Polaroid({ src, big, flip }: { src: string; big?: boolean; flip?: boolean }) {
   return (
-    <div className={`relative bg-white p-2.5 pb-9 shadow-lg -rotate-2 ${big ? 'w-56' : 'w-44'} shrink-0 mx-auto`}>
+    <div className={`relative bg-white p-2 pb-8 sm:p-2.5 sm:pb-9 shadow-lg ${flip ? 'rotate-2' : '-rotate-2'} ${big ? 'w-56' : 'w-[38%] sm:w-44'} shrink-0`}>
       <img src={src} alt="รูปจากแขก" className="w-full aspect-[3/4] object-cover bg-[#F5EBD2]" loading="lazy" />
       <p className="absolute bottom-2.5 left-0 right-0 text-center font-serif text-[11px] tracking-[0.15em] text-[#789568] whitespace-nowrap">
         P &amp; M · 06·12·2026
@@ -68,12 +68,13 @@ function Polaroid({ src, big }: { src: string; big?: boolean }) {
 
 function WishCard(props: {
   name: string; side?: string; text: string; stickers: string[]; color: { bg: string; edge: string }; big?: boolean; photo?: string
+  flip?: boolean // true = photo on the right
 }) {
   if (!props.photo) return <NoteCard {...props} />
   return (
-    <div className="flex flex-col sm:flex-row items-center gap-5">
-      <Polaroid src={props.photo} big={props.big} />
-      <div className="w-full sm:flex-1"><NoteCard {...props} /></div>
+    <div className={`flex items-center gap-3 sm:gap-5 ${props.flip ? 'flex-row-reverse' : 'flex-row'}`}>
+      <Polaroid src={props.photo} big={props.big} flip={props.flip} />
+      <div className="flex-1 min-w-0"><NoteCard {...props} /></div>
     </div>
   )
 }
@@ -178,9 +179,11 @@ export default function GuestbookPage() {
     <div className={`grid gap-8 ${bigScreen ? 'sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' : 'sm:grid-cols-2'}`}>
       {wall.map((w, i) => {
         const { text: t, stickers } = splitStickers(w.message)
+        // Alternate photo side by upload order (counted from the oldest) so a card keeps its side
+        const photoOrder = w.photo ? wall.slice(i + 1).filter((x) => x.photo).length : 0
         return (
           <div key={i} className={w.photo ? 'sm:col-span-2' : ''}>
-            <WishCard name={w.name} side={w.side} text={t} stickers={stickers} color={colorFor(w.name)} big={bigScreen} photo={w.photo} />
+            <WishCard name={w.name} side={w.side} text={t} stickers={stickers} color={colorFor(w.name)} big={bigScreen} photo={w.photo} flip={photoOrder % 2 === 1} />
           </div>
         )
       })}
