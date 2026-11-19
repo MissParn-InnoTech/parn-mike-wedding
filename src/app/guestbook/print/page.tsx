@@ -16,39 +16,57 @@ function Frame() {
   )
 }
 
-// Table tent panel (A5 landscape): QR on the left, text on the right.
+const COUPLE = '/images/guestbook-couple.jpg'
+
+function CouplePolaroid({ className = '', caption = true }: { className?: string; caption?: boolean }) {
+  return (
+    <div className={`bg-white shadow-[0_2px_10px_rgba(83,107,62,0.25)] ${className}`}>
+      <img src={COUPLE} alt="ป่านและไมค์" className="w-full aspect-[3/4] object-cover object-[50%_28%] block" />
+      {caption && <p className="text-center font-serif text-[7pt] tracking-[0.2em] text-[#789568] pt-[1.5mm]">P &amp; M</p>}
+    </div>
+  )
+}
+
+// Table tent panel (A5 landscape): couple polaroid · text · QR.
 function TentPanel() {
   return (
-    <div className="h-full w-full flex items-center justify-center gap-[7%] px-[10%] relative">
+    <div className="h-full w-full flex items-center justify-center gap-[5%] px-[9%] relative">
       <Frame />
-      <div className="bg-white rounded-2xl p-2 shadow-[0_0_0_5px_#F5EBD2] w-[36%] shrink-0">
-        <img src={QR} alt="QR หน้าเขียนคำอวยพร" className="w-full h-auto block" />
+      <CouplePolaroid className="w-[25%] shrink-0 p-[2mm] pb-[2.5mm] -rotate-3" />
+      <div className="text-center flex-1">
+        <p className="font-serif tracking-[0.3em] text-[#C9A45C] text-[8pt]">06 · 12 · 2026</p>
+        <p className="font-serif font-bold text-[#536B3E] leading-tight text-[24pt]">Parn &amp; Mike</p>
+        <p className="font-serif italic text-[#789568] text-[10pt] mb-2">Leave us a wish</p>
+        <p className="font-serif font-bold text-[#536B3E] text-[12.5pt] leading-snug">สแกนเขียนการ์ดอวยพร 💌</p>
+        <p className="font-serif text-[#789568] text-[8.5pt] leading-snug mt-1">แปะสติ๊กเกอร์ ถ่ายรูปแนบการ์ด<br />แล้วดูการ์ดของทุกคนบนจอในงาน</p>
       </div>
-      <div className="text-left">
-        <p className="font-serif tracking-[0.35em] text-[#C9A45C] text-[9pt]">06 · 12 · 2026</p>
-        <p className="font-serif font-bold text-[#536B3E] leading-tight text-[28pt]">Parn &amp; Mike</p>
-        <p className="font-serif italic text-[#789568] text-[11pt] mb-3">Leave us a wish</p>
-        <p className="font-serif font-bold text-[#536B3E] text-[15pt] leading-snug">สแกนเขียนการ์ดอวยพร 💌</p>
-        <p className="font-serif text-[#789568] text-[9.5pt] leading-snug mt-1">แปะสติ๊กเกอร์ ถ่ายรูปแนบการ์ด<br />แล้วดูการ์ดของทุกคนบนจอในงาน</p>
+      <div className="bg-white rounded-xl p-[1.5mm] shadow-[0_0_0_4px_#F5EBD2] w-[27%] shrink-0">
+        <img src={QR} alt="QR หน้าเขียนคำอวยพร" className="w-full h-auto block" />
       </div>
     </div>
   )
 }
 
-// Floor standee (A4 portrait, scale up at the print shop).
+// Floor standee (A4 portrait, scale up at the print shop): arched couple photo, names, QR.
 function PosterPanel() {
   return (
-    <div className="h-full w-full flex flex-col items-center justify-center text-center px-[8%] relative">
+    <div className="h-full w-full flex flex-col items-center justify-center text-center px-[10%] relative">
       <Frame />
-      <p className="font-serif tracking-[0.35em] text-[#C9A45C] text-[15pt] mb-3">06 · 12 · 2026</p>
-      <p className="font-serif font-bold text-[#536B3E] leading-none text-[54pt]">Parn &amp; Mike</p>
-      <p className="font-serif italic text-[#789568] text-[18pt] mt-3 mb-8">Leave us a wish</p>
-      <div className="bg-white rounded-2xl p-4 shadow-[0_0_0_8px_#F5EBD2] w-[58%]">
-        <img src={QR} alt="QR หน้าเขียนคำอวยพร" className="w-full h-auto block" />
+      <div className="w-[62%] rounded-t-full overflow-hidden border-[3mm] border-white shadow-[0_3px_14px_rgba(83,107,62,0.25)]">
+        <img src={COUPLE} alt="ป่านและไมค์" className="w-full aspect-[4/5] object-cover object-[50%_25%] block" />
       </div>
-      <p className="font-serif font-bold text-[#536B3E] text-[26pt] mt-8">สแกนเขียนการ์ดอวยพร 💌</p>
-      <p className="font-serif text-[#789568] text-[15pt] mt-2">แปะสติ๊กเกอร์ ถ่ายรูปแนบการ์ด แล้วดูการ์ดของทุกคนบนจอในงานได้เลย</p>
-      <p className="font-serif tracking-[0.2em] text-[#B7A286] text-[11pt] mt-8">parn-mike-wedding.vercel.app/guestbook</p>
+      <p className="font-serif tracking-[0.35em] text-[#C9A45C] text-[13pt] mt-6">06 · 12 · 2026</p>
+      <p className="font-serif font-bold text-[#536B3E] leading-none text-[46pt] mt-1">Parn &amp; Mike</p>
+      <p className="font-serif italic text-[#789568] text-[16pt] mt-2 mb-6">Leave us a wish</p>
+      <div className="flex items-center gap-[6%] w-full justify-center">
+        <div className="bg-white rounded-2xl p-[2.5mm] shadow-[0_0_0_6px_#F5EBD2] w-[34%] shrink-0">
+          <img src={QR} alt="QR หน้าเขียนคำอวยพร" className="w-full h-auto block" />
+        </div>
+        <div className="text-left">
+          <p className="font-serif font-bold text-[#536B3E] text-[20pt] leading-snug">สแกนเขียน<br />การ์ดอวยพร 💌</p>
+          <p className="font-serif text-[#789568] text-[12pt] mt-2 leading-snug">แปะสติ๊กเกอร์ ถ่ายรูปแนบการ์ด<br />แล้วดูการ์ดของทุกคนบนจอในงาน</p>
+        </div>
+      </div>
     </div>
   )
 }

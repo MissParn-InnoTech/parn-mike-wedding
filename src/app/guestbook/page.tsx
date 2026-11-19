@@ -3,12 +3,15 @@
 import { useCallback, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { SHEET_SCRIPT_URL, compressImage, postToSheet } from '@/lib/sheet'
+import { STICKER_KEYS, StickerIcon } from '@/components/CuteStickers'
 
 // In-venue guestbook: guests write a short wish on a card, decorate it with stickers and can
 // attach a photo. The Apps Script (v6+) saves cards to the separate "อวยพรในงาน" sheet, with
 // stickers and the photo in their own columns, and returns `photo` so the wall shows a polaroid.
 
-const STICKERS = ['💍', '💐', '🥂', '💌', '🎂', '💕', '🌸', '✨', '🕊️', '🍾', '🧸', '🎉', '🌿', '🫶', '💒', '🍰']
+const STICKERS = STICKER_KEYS
+// Emoji stickers used before the drawn set; still recognised so older cards keep their stickers
+const LEGACY_STICKERS = ['💐', '🥂', '✨', '🕊️', '🍾', '🧸', '🎉', '🌿', '🫶', '💒', '🍰']
 const MAX_STICKERS = 4
 
 const CARD_COLORS = [
@@ -32,7 +35,7 @@ function splitStickers(message: string) {
   const lines = String(message || '').split('\n')
   const last = lines[lines.length - 1]?.trim() || ''
   const tokens = last.split(/\s+/).filter(Boolean)
-  if (lines.length > 1 && tokens.length && tokens.every((t) => STICKERS.includes(t))) {
+  if (lines.length > 1 && tokens.length && tokens.every((t) => STICKERS.includes(t) || LEGACY_STICKERS.includes(t))) {
     return { text: lines.slice(0, -1).join('\n').trim(), stickers: tokens.slice(0, MAX_STICKERS) }
   }
   return { text: String(message || ''), stickers: [] as string[] }
@@ -47,10 +50,10 @@ function colorFor(name: string) {
 function StickerChip({ s, className = '' }: { s: string; className?: string }) {
   return (
     <span
-      className={`inline-flex items-center justify-center w-11 h-11 rounded-full bg-white text-2xl shadow-[0_3px_8px_rgba(83,107,62,0.25)] ring-[3px] ring-white select-none ${className}`}
+      className={`inline-flex items-center justify-center w-12 h-12 rounded-full bg-white text-2xl shadow-[0_3px_8px_rgba(83,107,62,0.25)] ring-[3px] ring-white select-none ${className}`}
       aria-hidden
     >
-      {s}
+      <StickerIcon s={s} className="w-9 h-9" />
     </span>
   )
 }
@@ -176,7 +179,7 @@ export default function GuestbookPage() {
   }
 
   const wallGrid = (
-    <div className={`grid gap-8 ${bigScreen ? 'sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' : 'sm:grid-cols-2'}`}>
+    <div className={`grid gap-8 ${bigScreen ? 'sm:grid-cols-2 2xl:grid-cols-3' : 'sm:grid-cols-2'}`}>
       {wall.map((w, i) => {
         const { text: t, stickers } = splitStickers(w.message)
         // Alternate photo side by upload order (counted from the oldest) so a card keeps its side
@@ -192,17 +195,24 @@ export default function GuestbookPage() {
 
   if (bigScreen) {
     return (
-      <div className="min-h-screen bg-[#F5EBD2] px-8 py-8"><div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-10">
-          <div className="text-center md:text-left">
-            <p className="text-[#C9A45C] font-serif tracking-[0.3em] text-sm">PARN &amp; MIKE · 6.12.2026</p>
-            <h1 className="font-serif text-4xl md:text-5xl font-bold text-[#536B3E]">Guestbook 💌</h1>
-            <p className="font-serif text-lg text-[#789568]">สแกน QR เขียนคำอวยพร แปะสติ๊กเกอร์ และถ่ายรูปแนบการ์ดได้เลย</p>
-          </div>
-          <img src="/images/guestbook-qr.png" alt="QR ไปหน้าเขียนคำอวยพร" className="w-40 h-40 rounded-2xl shadow-lg bg-white p-2" />
+      <div className="min-h-screen bg-[#F5EBD2] px-8 py-8">
+        <div className="max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-10">
+          <aside className="lg:sticky lg:top-8 self-start text-center">
+            <div className="bg-white p-3 pb-12 shadow-xl -rotate-2 mx-auto w-[260px] relative">
+              <img src="/images/guestbook-couple.jpg" alt="ป่านและไมค์" className="w-full aspect-[3/4] object-cover object-[50%_28%]" />
+              <p className="absolute bottom-3 left-0 right-0 font-serif text-sm tracking-[0.2em] text-[#789568]">06 · 12 · 2026</p>
+            </div>
+            <h1 className="font-serif text-5xl font-bold text-[#536B3E] mt-8 leading-tight">Parn &amp; Mike</h1>
+            <p className="font-serif italic text-xl text-[#789568] mb-6">Wishing Wall 💌</p>
+            <img src="/images/guestbook-qr.svg" alt="QR ไปหน้าเขียนคำอวยพร" className="w-44 h-44 mx-auto rounded-2xl shadow-lg bg-white p-3" />
+            <p className="font-serif font-bold text-lg text-[#536B3E] mt-4">สแกนเขียนการ์ดอวยพร</p>
+            <p className="font-serif text-[#789568]">แปะสติ๊กเกอร์ และถ่ายรูปแนบการ์ดได้เลย</p>
+          </aside>
+          <main>
+            {wall.length ? wallGrid : <p className="text-center font-serif text-xl text-[#789568] mt-20">No wishes yet — be the first 💗</p>}
+          </main>
         </div>
-        {wall.length ? wallGrid : <p className="text-center font-serif text-[#789568]">รอคำอวยพรแรกอยู่นะคะ 💗</p>}
-      </div></div>
+      </div>
     )
   }
 
@@ -270,9 +280,9 @@ export default function GuestbookPage() {
                       onClick={() => toggle(s)}
                       aria-pressed={on}
                       aria-label={`สติ๊กเกอร์ ${s}`}
-                      className={`aspect-square rounded-2xl text-2xl flex items-center justify-center transition ${on ? 'bg-[#789568]/15 ring-2 ring-[#789568] scale-105' : 'bg-[#F5EBD2]/60 hover:bg-[#F5EBD2]'}`}
+                      className={`aspect-square rounded-2xl p-1 flex items-center justify-center transition ${on ? 'bg-[#789568]/15 ring-2 ring-[#789568] scale-105' : 'bg-[#F5EBD2]/60 hover:bg-[#F5EBD2]'}`}
                     >
-                      {s}
+                      <StickerIcon s={s} className="w-full h-full" />
                     </button>
                   )
                 })}
