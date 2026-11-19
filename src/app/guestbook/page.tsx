@@ -3,12 +3,15 @@
 import { useCallback, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { SHEET_SCRIPT_URL, compressImage, postToSheet } from '@/lib/sheet'
+import { STICKER_KEYS, StickerIcon } from '@/components/CuteStickers'
 
 // In-venue guestbook: guests write a short wish on a card, decorate it with stickers and can
 // attach a photo. The Apps Script (v6+) saves cards to the separate "อวยพรในงาน" sheet, with
 // stickers and the photo in their own columns, and returns `photo` so the wall shows a polaroid.
 
-const STICKERS = ['💍', '💐', '🥂', '💌', '🎂', '💕', '🌸', '✨', '🕊️', '🍾', '🧸', '🎉', '🌿', '🫶', '💒', '🍰']
+const STICKERS = STICKER_KEYS
+// Emoji stickers used before the drawn set; still recognised so older cards keep their stickers
+const LEGACY_STICKERS = ['💐', '🥂', '✨', '🕊️', '🍾', '🧸', '🎉', '🌿', '🫶', '💒', '🍰']
 const MAX_STICKERS = 4
 
 const CARD_COLORS = [
@@ -32,7 +35,7 @@ function splitStickers(message: string) {
   const lines = String(message || '').split('\n')
   const last = lines[lines.length - 1]?.trim() || ''
   const tokens = last.split(/\s+/).filter(Boolean)
-  if (lines.length > 1 && tokens.length && tokens.every((t) => STICKERS.includes(t))) {
+  if (lines.length > 1 && tokens.length && tokens.every((t) => STICKERS.includes(t) || LEGACY_STICKERS.includes(t))) {
     return { text: lines.slice(0, -1).join('\n').trim(), stickers: tokens.slice(0, MAX_STICKERS) }
   }
   return { text: String(message || ''), stickers: [] as string[] }
@@ -47,10 +50,10 @@ function colorFor(name: string) {
 function StickerChip({ s, className = '' }: { s: string; className?: string }) {
   return (
     <span
-      className={`inline-flex items-center justify-center w-11 h-11 rounded-full bg-white text-2xl shadow-[0_3px_8px_rgba(83,107,62,0.25)] ring-[3px] ring-white select-none ${className}`}
+      className={`inline-flex items-center justify-center w-12 h-12 rounded-full bg-white text-2xl shadow-[0_3px_8px_rgba(83,107,62,0.25)] ring-[3px] ring-white select-none ${className}`}
       aria-hidden
     >
-      {s}
+      <StickerIcon s={s} className="w-9 h-9" />
     </span>
   )
 }
@@ -277,9 +280,9 @@ export default function GuestbookPage() {
                       onClick={() => toggle(s)}
                       aria-pressed={on}
                       aria-label={`สติ๊กเกอร์ ${s}`}
-                      className={`aspect-square rounded-2xl text-2xl flex items-center justify-center transition ${on ? 'bg-[#789568]/15 ring-2 ring-[#789568] scale-105' : 'bg-[#F5EBD2]/60 hover:bg-[#F5EBD2]'}`}
+                      className={`aspect-square rounded-2xl p-1 flex items-center justify-center transition ${on ? 'bg-[#789568]/15 ring-2 ring-[#789568] scale-105' : 'bg-[#F5EBD2]/60 hover:bg-[#F5EBD2]'}`}
                     >
-                      {s}
+                      <StickerIcon s={s} className="w-full h-full" />
                     </button>
                   )
                 })}
