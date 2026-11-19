@@ -382,7 +382,7 @@ export default function Home() {
                 <img src="https://i.postimg.cc/MHky4HHw/khxng-char-wy-(7).png" alt="Celebration" className="w-12 h-12 object-contain" />
               </div>
               <div>
-                <h3 className="font-serif text-lg font-bold text-[#536B3E]">Celebration / รดน้ำสังข์และงานเลี้ยง</h3>
+                <h3 className="font-serif text-lg font-bold text-[#536B3E]">Celebration / หลั่งน้ำสังข์และงานเลี้ยง</h3>
                 <p className="text-[#789568] font-serif text-sm">09:09 AM - 11:00 AM</p>
               </div>
             </div>
