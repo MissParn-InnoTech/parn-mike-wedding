@@ -51,7 +51,7 @@ export default function SchedulePage() {
               <span className="font-serif font-bold text-base sm:text-lg text-[#789568] whitespace-nowrap">PARN & MIKE</span>
             </Link>
             <div className="space-x-3 sm:space-x-6 whitespace-nowrap">
-              <Link href="https://drive.google.com/drive/folders/161V_cnOtutZLQOh5CVz3Es5fmMdDBX4R?usp=sharing" target="_blank" rel="noopener noreferrer" className="text-xs sm:text-sm font-serif font-medium text-[#536B3E] hover:text-[#789568] transition-colors">Photos</Link>
+              <Link href="/gallery" className="text-xs sm:text-sm font-serif font-medium text-[#536B3E] hover:text-[#789568] transition-colors">Photos</Link>
               <Link href="/rsvp" className="text-xs sm:text-sm font-serif font-medium text-[#536B3E] hover:text-[#789568] transition-colors">RSVP</Link>
               <Link href="/information" className="text-xs sm:text-sm font-serif font-medium text-[#536B3E] hover:text-[#789568] transition-colors">Information</Link>
               <Link href="/schedule" className="text-xs sm:text-sm font-serif font-bold text-[#789568]">Schedule</Link>
