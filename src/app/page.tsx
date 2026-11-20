@@ -185,7 +185,7 @@ export default function Home() {
           <div className="flex justify-between items-center h-16">
             <span className="font-serif font-bold text-base sm:text-lg text-[#789568] whitespace-nowrap">PARN & MIKE</span>
             <div className="space-x-3 sm:space-x-6 whitespace-nowrap">
-              <Link href="https://drive.google.com/drive/folders/161V_cnOtutZLQOh5CVz3Es5fmMdDBX4R?usp=sharing" target="_blank" rel="noopener noreferrer" className="text-xs sm:text-sm font-serif font-medium text-[#536B3E] hover:text-[#789568]">Photos</Link>
+              <Link href="/gallery" className="text-xs sm:text-sm font-serif font-medium text-[#536B3E] hover:text-[#789568]">Photos</Link>
               <Link href="/rsvp" className="text-xs sm:text-sm font-serif font-medium text-[#536B3E] hover:text-[#789568]">RSVP</Link>
               <Link href="/information" className="text-xs sm:text-sm font-serif font-medium text-[#536B3E] hover:text-[#789568]">Information</Link>
               <Link href="/schedule" className="text-xs sm:text-sm font-serif font-medium text-[#536B3E] hover:text-[#789568]">Schedule</Link>
@@ -297,7 +297,7 @@ export default function Home() {
           </Link>
 
           {/* Gallery Card */}
-          <Link href="https://drive.google.com/drive/folders/161V_cnOtutZLQOh5CVz3Es5fmMdDBX4R?usp=sharing" target="_blank" rel="noopener noreferrer" className="group">
+          <Link href="/gallery" className="group">
             <div className="bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all transform hover:scale-105 border border-[#789568]/10">
               <div className="relative h-32 sm:h-48 bg-gradient-to-b from-[#789568]/20 to-[#F5EBD2] flex items-center justify-center">
                 <img src="https://i.postimg.cc/fbxq5GBQ/khxng-char-wy-(3).png" alt="Gallery" className="w-20 h-20 sm:w-28 sm:h-28 object-contain" />
