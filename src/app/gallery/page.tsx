@@ -99,7 +99,7 @@ export default function GalleryPage() {
       </main>
 
       {current && open !== null && photos && (
-        <div className="fixed inset-0 z-50 bg-black/90 flex flex-col" role="dialog" aria-modal="true" onClick={() => setOpen(null)}>
+        <div className="fixed inset-0 z-50 bg-[#141a10] flex flex-col" role="dialog" aria-modal="true" onClick={() => setOpen(null)}>
           <div className="flex items-center justify-between px-4 py-3 text-white" onClick={(e) => e.stopPropagation()}>
             <p className="font-serif text-sm truncate">{current.name ? `จาก ${current.name}` : ''}</p>
             <div className="flex items-center gap-2 shrink-0">
