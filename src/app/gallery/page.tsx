@@ -39,18 +39,31 @@ function dHash(id: string, attempt = 0): Promise<string | null> {
       }
     }
     img.onerror = () => resolve(null)
+    setTimeout(() => resolve(null), 3000) // never wait on a stalled request
     img.src = thumb(id, 64) + (attempt ? `?r=${attempt}` : '')
   })
 }
 
-// If lh3 refuses a request (it sometimes rate-limits), retry the same picture through Drive's own URL
-const fallbackSrc = (id: string, w: number) => (e: React.SyntheticEvent<HTMLImageElement>) => {
-  const el = e.currentTarget
-  const tries = Number(el.dataset.tries || 0) + 1
-  el.dataset.tries = String(tries)
-  if (tries > 4) return
-  const next = tries < 3 ? `${thumb(id, w)}?r=${tries}` : `https://drive.google.com/thumbnail?id=${id}&sz=w${w}&r=${tries}`
-  setTimeout(() => { el.src = next }, 600 * tries)
+// Shows one Drive photo. The image source is kept in state for this photo only, so a retry can
+// never paint another photo's picture into this frame. Tries Drive's thumbnail first, then lh3.
+function SmartImg({ id, w, className }: { id: string; w: number; className?: string }) {
+  const sources = [
+    `https://drive.google.com/thumbnail?id=${id}&sz=w${w}`,
+    thumb(id, w),
+    `https://drive.google.com/thumbnail?id=${id}&sz=w${w}&retry=1`,
+  ]
+  const [n, setN] = useState(0)
+  useEffect(() => setN(0), [id])
+  return (
+    <img
+      key={`${id}-${n}`}
+      src={sources[Math.min(n, sources.length - 1)]}
+      onError={() => n < sources.length - 1 && setTimeout(() => setN((x) => x + 1), 400)}
+      alt=""
+      loading="lazy"
+      className={className}
+    />
+  )
 }
 
 const distance = (a: string, b: string) => {
@@ -63,7 +76,7 @@ const distance = (a: string, b: string) => {
 async function removeDuplicates(items: Photo[]): Promise<Photo[]> {
   const wait = (ms: number) => new Promise((r) => setTimeout(r, ms))
   const hashWithRetry = async (id: string) => {
-    for (let attempt = 0; attempt < 4; attempt++) {
+    for (let attempt = 0; attempt < 2; attempt++) {
       const h = await dHash(id, attempt)
       if (h) return h
       await wait(500 * (attempt + 1))
@@ -96,7 +109,12 @@ export default function GalleryPage() {
     fetch(`${SHEET_SCRIPT_URL}?action=gallery`)
       .then((r) => r.json())
       .then((d) => {
-        if (d && d.version >= 7 && Array.isArray(d.items)) return removeDuplicates(d.items).then(setPhotos)
+        if (d && d.version >= 7 && Array.isArray(d.items)) {
+          // Show photos within 2.5 s even if duplicate checking is slow; tidy up once it finishes
+          let done = false
+          const t = setTimeout(() => { if (!done) setPhotos((cur) => cur ?? d.items) }, 2500)
+          return removeDuplicates(d.items).then((list) => { done = true; clearTimeout(t); setPhotos(list) })
+        }
         else setFailed(true)
       })
       .catch(() => setFailed(true))
@@ -152,35 +170,25 @@ export default function GalleryPage() {
         {photos && photos.length > 0 && (
           <>
             <p className="text-center text-sm text-[#B7A286] mb-6">{photos.length.toLocaleString('th-TH')} รูป</p>
-            {/* Bento layout: every 7 photos, one large feature (2×2) and one tall (1×2); dense flow fills gaps */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 auto-rows-[150px] sm:auto-rows-[190px] lg:auto-rows-[220px] gap-2.5 sm:gap-4 [grid-auto-flow:dense]">
-              {photos.map((p, i) => {
-                const slot = i % 7
-                const size = slot === 0 ? 'col-span-2 row-span-2' : slot === 4 ? 'row-span-2' : ''
-                return (
-                  <button
-                    key={p.id}
-                    onClick={() => setOpen(i)}
-                    className={`group relative overflow-hidden rounded-2xl bg-white p-1.5 sm:p-2 shadow-[0_4px_14px_rgba(83,107,62,0.18)] hover:shadow-[0_8px_24px_rgba(83,107,62,0.28)] transition-shadow ${size}`}
-                    aria-label={`ดูรูป${p.name ? ' จาก ' + p.name : ''}`}
-                  >
-                    <div className="relative w-full h-full overflow-hidden rounded-xl bg-[#EFE6D2]">
-                      <img
-                        src={thumb(p.id, slot === 0 ? 1200 : 700)}
-                        onError={fallbackSrc(p.id, slot === 0 ? 1200 : 700)}
-                        alt=""
-                        loading="lazy"
-                        className="absolute inset-0 w-full h-full object-cover object-[50%_25%] transition-transform duration-500 group-hover:scale-105"
-                      />
-                      {p.name && (
-                        <span className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/55 to-transparent text-white text-[11px] sm:text-xs font-serif text-left px-2.5 sm:px-3 pt-8 pb-2 truncate">
-                          {p.kind === 'card' ? '💌 ' : '📷 '}{p.name}
-                        </span>
-                      )}
-                    </div>
-                  </button>
-                )
-              })}
+            {/* Masonry: every photo keeps its real shape (no cropping) */}
+            <div className="columns-2 sm:columns-3 lg:columns-4 gap-3 sm:gap-4">
+              {photos.map((p, i) => (
+                <button
+                  key={p.id}
+                  onClick={() => setOpen(i)}
+                  className="group block w-full mb-3 sm:mb-4 break-inside-avoid rounded-2xl bg-white p-1.5 sm:p-2 shadow-[0_4px_14px_rgba(83,107,62,0.18)] hover:shadow-[0_8px_24px_rgba(83,107,62,0.28)] transition-shadow text-left"
+                  aria-label={`ดูรูป${p.name ? ' จาก ' + p.name : ''}`}
+                >
+                  <div className="overflow-hidden rounded-xl bg-[#EFE6D2]">
+                    <SmartImg id={p.id} w={700} className="w-full h-auto block transition-transform duration-500 group-hover:scale-[1.03]" />
+                  </div>
+                  {p.name && (
+                    <p className="px-1.5 pt-2 pb-0.5 text-[11px] sm:text-xs font-serif text-[#789568] truncate">
+                      {p.kind === 'card' ? '💌 ' : '📷 '}{p.name}
+                    </p>
+                  )}
+                </button>
+              ))}
             </div>
           </>
         )}
@@ -198,7 +206,7 @@ export default function GalleryPage() {
             </div>
           </div>
           <div className="flex-1 flex items-center justify-center px-2 pb-4 relative min-h-0">
-            <img key={current.id} src={thumb(current.id, 2000)} onError={fallbackSrc(current.id, 2000)} alt="" className="max-w-full max-h-full object-contain" onClick={(e) => e.stopPropagation()} />
+            <div onClick={(e) => e.stopPropagation()} className="max-w-full max-h-full flex"><SmartImg id={current.id} w={2000} className="max-w-full max-h-[calc(100vh-90px)] object-contain" /></div>
             {open > 0 && (
               <button onClick={(e) => { e.stopPropagation(); setOpen(open - 1) }} className="absolute left-2 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/20 text-white text-2xl" aria-label="รูปก่อนหน้า">‹</button>
             )}
