@@ -63,8 +63,10 @@ export default function VoiceInput({ value, onChange, maxLength = 300 }: Props) 
       setInterim(live)
     }
     rec.onerror = (e) => {
+      setListening(false)
+      setInterim('')
       if (e.error === 'not-allowed' || e.error === 'service-not-allowed') {
-        setError('ยังไม่ได้อนุญาตให้ใช้ไมโครโฟน กด "อนุญาต" ที่หน้าต่างของเบราว์เซอร์ แล้วลองใหม่นะคะ')
+        setError('ยังไม่ได้อนุญาตให้ใช้ไมโครโฟน แตะรูปแม่กุญแจ/ตัวอักษร aA ที่แถบที่อยู่เว็บ แล้วเปิด "ไมโครโฟน" เป็นอนุญาต จากนั้นกดใหม่นะคะ')
       } else if (e.error === 'no-speech') {
         setError('ไม่ได้ยินเสียงเลย ลองพูดใกล้มือถืออีกนิดนะคะ')
       } else if (e.error !== 'aborted') {
