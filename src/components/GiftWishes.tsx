@@ -152,7 +152,7 @@ export default function GiftWishes({ defaultName = '', onClose, onSent }: Props)
               maxLength={500}
               value={wish.message}
               onChange={(e) => setWish({ ...wish, message: e.target.value })}
-              placeholder="พิมพ์ หรือกดปุ่มไมค์ด้านล่างแล้วพูดได้เลย"
+              placeholder="เขียนอะไรก็ได้ที่อยากบอกป่านกับไมค์..."
               className="w-full px-4 py-3 border-2 border-[#C9A45C]/60 rounded-xl bg-white focus:outline-none focus:border-[#789568] resize-none"
             />
             <VoiceInput value={wish.message} onChange={(t) => setWish((w) => ({ ...w, message: t }))} maxLength={500} />

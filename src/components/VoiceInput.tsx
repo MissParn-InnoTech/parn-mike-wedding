@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 
-// Big "พูดแทนพิมพ์" button: speech-to-text in Thai through the browser's Web Speech API
+// Small "Voice · พิมพ์ด้วยเสียง" mic button: speech-to-text in Thai through the browser's Web Speech API
 // (Chrome on Android/desktop, Safari on iPhone/iPad, Edge). Each finished phrase is appended
 // to the text box, so guests can speak, pause and continue. Hidden-free: when the browser has
 // no speech support, it explains to use the microphone key on the phone keyboard instead.
@@ -91,32 +91,31 @@ export default function VoiceInput({ value, onChange, maxLength = 300 }: Props) 
 
   if (!supported) {
     return (
-      <p className="text-xs text-[#789568] mt-2 leading-relaxed">
-        🎤 อยากพูดแทนพิมพ์: แตะช่องคำอวยพร แล้วกดปุ่ม <b>ไมโครโฟน</b> บนแป้นพิมพ์มือถือได้เลยค่ะ
-      </p>
+      <p className="text-xs text-[#789568] mt-1.5">🎤 พิมพ์ด้วยเสียง: กดปุ่มไมค์บนแป้นพิมพ์มือถือได้เลยค่ะ</p>
     )
   }
 
   return (
-    <div className="mt-2">
+    <div className="mt-1.5">
       <button
         type="button"
         onClick={listening ? stop : start}
         aria-pressed={listening}
-        className={`w-full flex items-center justify-center gap-2 py-3.5 rounded-xl font-serif font-semibold text-base transition ${
-          listening
-            ? 'bg-[#E9576A] text-white shadow-lg animate-pulse'
-            : 'bg-[#789568]/12 border-2 border-[#789568] text-[#536B3E] hover:bg-[#789568] hover:text-white'
+        aria-label={listening ? 'หยุดฟังเสียง' : 'พิมพ์ด้วยเสียง'}
+        className={`inline-flex items-center gap-1.5 pl-1.5 pr-3 py-1 rounded-full text-xs font-serif font-semibold transition ${
+          listening ? 'bg-[#E9576A] text-white' : 'bg-[#789568]/10 text-[#536B3E] hover:bg-[#789568]/20'
         }`}
       >
-        <span className="text-xl" aria-hidden>{listening ? '⏹' : '🎤'}</span>
-        {listening ? 'กำลังฟัง… พูดได้เลย (แตะเพื่อหยุด)' : 'กดแล้วพูดคำอวยพร ไม่ต้องพิมพ์'}
+        <span className={`w-7 h-7 rounded-full flex items-center justify-center ${listening ? 'bg-white/25 animate-pulse' : 'bg-white shadow-sm'}`}>
+          <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
+            <rect x="9" y="3" width="6" height="11" rx="3" fill={listening ? 'currentColor' : 'none'} />
+            <path d="M5 11a7 7 0 0 0 14 0M12 18v3" />
+          </svg>
+        </span>
+        {listening ? 'กำลังฟัง… แตะเพื่อหยุด' : 'Voice · พิมพ์ด้วยเสียง'}
       </button>
-      {listening && interim && <p className="text-sm text-[#789568] mt-2 italic">“{interim}”</p>}
-      {error && <p className="text-xs text-red-600 mt-2">{error}</p>}
-      {!listening && !error && value && (
-        <p className="text-xs text-[#B7A286] mt-1.5">แก้ไขคำที่ฟังผิดในช่องด้านบนได้ก่อนกดส่งนะคะ</p>
-      )}
+      {listening && interim && <p className="text-sm text-[#789568] mt-1.5 italic">“{interim}”</p>}
+      {error && <p className="text-xs text-red-600 mt-1.5">{error}</p>}
     </div>
   )
 }

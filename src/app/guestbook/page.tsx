@@ -323,11 +323,13 @@ export default function GuestbookPage() {
                 maxLength={300}
                 value={text}
                 onChange={(e) => setText(e.target.value)}
-                placeholder="พิมพ์ หรือกดปุ่มไมค์ด้านล่างแล้วพูดได้เลย"
+                placeholder="ขอให้รักกันนาน ๆ นะ…"
                 className="w-full px-4 py-3 border-2 border-[#C9A45C]/60 rounded-xl bg-white focus:outline-none focus:border-[#789568] resize-none"
               />
-              <p className="text-right text-xs text-[#B7A286]">{text.length}/300</p>
-              <VoiceInput value={text} onChange={setText} maxLength={300} />
+              <div className="flex items-start justify-between gap-2">
+                <VoiceInput value={text} onChange={setText} maxLength={300} />
+                <p className="text-xs text-[#B7A286] pt-1.5">{text.length}/300</p>
+              </div>
             </div>
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
