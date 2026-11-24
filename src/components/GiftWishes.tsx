@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { compressImage, postToSheet } from '@/lib/sheet'
+import VoiceInput from '@/components/VoiceInput'
 
 const ACCOUNT_NUMBER = '142-8-14923-4'
 
@@ -154,6 +155,7 @@ export default function GiftWishes({ defaultName = '', onClose, onSent }: Props)
               placeholder="เขียนอะไรก็ได้ที่อยากบอกป่านกับไมค์..."
               className="w-full px-4 py-3 border-2 border-[#C9A45C]/60 rounded-xl bg-white focus:outline-none focus:border-[#789568] resize-none"
             />
+            <VoiceInput value={wish.message} onChange={(t) => setWish((w) => ({ ...w, message: t }))} maxLength={500} />
           </div>
           <div>
             <label htmlFor="wish-slip" className="block text-sm font-semibold text-[#536B3E] mb-1">แนบสลิปโอนเงิน (ถ้ามี)</label>
