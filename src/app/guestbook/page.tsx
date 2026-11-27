@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { SHEET_SCRIPT_URL, compressImage, postToSheet } from '@/lib/sheet'
 import { STICKER_KEYS, StickerIcon } from '@/components/CuteStickers'
 import VoiceInput from '@/components/VoiceInput'
+import WishExamples from '@/components/WishExamples'
 
 // In-venue guestbook: guests write a short wish on a card, decorate it with stickers and can
 // attach a photo. The Apps Script (v6+) saves cards to the separate "อวยพรในงาน" sheet, with
@@ -330,6 +331,7 @@ export default function GuestbookPage() {
                 <VoiceInput value={text} onChange={setText} maxLength={300} />
                 <p className="text-xs text-[#B7A286] pt-1.5">{text.length}/300</p>
               </div>
+              <WishExamples onPick={(t) => setText(t)} />
             </div>
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
