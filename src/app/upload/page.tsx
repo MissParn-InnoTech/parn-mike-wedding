@@ -58,7 +58,7 @@ export default function UploadPage() {
         <div className="max-w-6xl mx-auto px-4 text-center space-y-3">
           <p className="font-serif text-lg font-semibold text-[#B7A286]">PARN & MIKE</p>
           <p className="text-sm text-[#B7A286]">© 2026 Our Special Day. All our love.</p>
-          <p className="text-xs text-[#B7A286]/80">Created by Bride Parn</p>
+          <p className="text-xs text-[#B7A286]/80"><Link href="/made-with-love" className="hover:text-[#F5EBD2] underline decoration-dotted underline-offset-4">Created by Bride Parn</Link></p>
           <div className="pt-1"><FbPageLink /></div>
         </div>
       </footer>

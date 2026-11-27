@@ -1,0 +1,168 @@
+import Link from 'next/link'
+import type { Metadata } from 'next'
+import FbPageLink from '@/components/FbPageLink'
+
+export const metadata: Metadata = {
+  title: 'Made with Love · PARN & MIKE',
+  description: 'เบื้องหลังงานแต่ง Parn & Mike ที่เจ้าสาวลงมือทำเองแทบทุกอย่าง',
+}
+
+const ink = '#536B3E'
+
+// Line icons drawn for this page (stroke uses currentColor).
+const icons: Record<string, JSX.Element> = {
+  khanmaak: (
+    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M8 26h32l-4 12H12z" />
+      <path d="M14 26c0-6 4-10 10-10s10 4 10 10" />
+      <path d="M24 16v-5M20 9c2 2 6 2 8 0" />
+      <path d="M18 32h12" />
+    </svg>
+  ),
+  card: (
+    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="8" y="12" width="32" height="24" rx="3" />
+      <path d="M8 15l16 11 16-11" />
+      <path d="M24 33c-3-2-5-3.5-5-5.5a2.5 2.5 0 0 1 5-1 2.5 2.5 0 0 1 5 1c0 2-2 3.5-5 5.5z" fill="currentColor" stroke="none" opacity=".35" />
+    </svg>
+  ),
+  favor: (
+    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="9" y="20" width="30" height="20" rx="2" />
+      <path d="M7 14h34v6H7zM24 14v26" />
+      <path d="M24 14c-2-5-9-7-9-2 0 2 4 2 9 2zM24 14c2-5 9-7 9-2 0 2-4 2-9 2z" />
+    </svg>
+  ),
+  vendor: (
+    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="12" y="8" width="24" height="32" rx="3" />
+      <path d="M18 8V5h12v3" />
+      <path d="M18 19l3 3 5-6M18 30l3 3 5-6" />
+      <path d="M30 20h2M30 31h2" />
+    </svg>
+  ),
+  art: (
+    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M24 8C14 8 8 15 8 23c0 9 7 15 13 15 3 0 3-3 2-5s0-4 3-4h5c5 0 9-3 9-9 0-7-7-12-16-12z" />
+      <circle cx="17" cy="20" r="2" /><circle cx="25" cy="15" r="2" /><circle cx="32" cy="21" r="2" />
+    </svg>
+  ),
+  system: (
+    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="8" y="10" width="32" height="28" rx="3" />
+      <path d="M8 18h32M18 18v20M8 26h32M8 32h32" />
+    </svg>
+  ),
+  game: (
+    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="9" y="17" width="22" height="22" rx="4" />
+      <circle cx="15" cy="23" r="1.5" fill="currentColor" /><circle cx="20" cy="28" r="1.5" fill="currentColor" /><circle cx="25" cy="33" r="1.5" fill="currentColor" />
+      <path d="M31 22l6-6M34 11l1.5 3 3 1.5-3 1.5L34 20l-1.5-3-3-1.5 3-1.5z" />
+    </svg>
+  ),
+  web: (
+    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="15" y="6" width="18" height="36" rx="4" />
+      <path d="M22 37h4" />
+      <path d="M24 26c-3-2-5-3.5-5-5.5a2.5 2.5 0 0 1 5-1 2.5 2.5 0 0 1 5 1c0 2-2 3.5-5 5.5z" />
+    </svg>
+  ),
+}
+
+const works = [
+  { key: 'khanmaak', en: 'Khan Maak Set', th: 'ชุดขันหมาก', note: 'จัดพานและของในขันหมากเอง ทุกชิ้นเลือกให้เข้าธีมของงาน' },
+  { key: 'card', en: 'Invitation Cards', th: 'การ์ดเชิญ', note: 'ออกแบบการ์ดและซองเอง ทั้งแบบพิมพ์และแบบส่งออนไลน์' },
+  { key: 'favor', en: 'Wedding Favors', th: 'ของชำร่วย', note: 'เลือก แพ็ก และผูกโบว์ของชำร่วยเอง ทุกชิ้นตั้งใจให้แขกที่มาร่วมงาน' },
+  { key: 'vendor', en: 'Vendor Planning', th: 'ประสานงาน Vendor', note: 'เลือกและดูแลทีมงานเอง สถานที่ ช่างภาพ ดอกไม้ อาหาร' },
+  { key: 'art', en: 'Artwork & Signage', th: 'งานอาร์ตและป้าย', note: 'ผังโต๊ะ ป้ายต้อนรับ Tent Card สติ๊กเกอร์ ในโทนเดียวกันทั้งงาน' },
+  { key: 'system', en: 'Parn & Mike Management', th: 'ระบบจัดการงาน', note: 'ระบบหลังบ้านของงาน ตอบรับแขก ผังที่นั่ง ของรางวัล รวมไว้ในที่เดียว' },
+  { key: 'game', en: 'Wedding Games', th: 'เกมในงาน', note: 'คิดเกมและกิจกรรมจับรางวัลเอง ให้แขกสนุกไปด้วยกันทั้งงาน' },
+  { key: 'web', en: 'Wedding Website', th: 'เว็บงานแต่ง', note: 'เว็บไซต์นี้ รวม RSVP กำหนดการ แกลเลอรี่ และการ์ดอวยพรในงาน' },
+]
+
+export default function MadeWithLovePage() {
+  return (
+    <div className="min-h-screen bg-[#F5EBD2]">
+      <nav className="bg-white shadow-sm sticky top-0 z-40 border-b border-[#789568]/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <Link href="/" className="font-serif font-bold text-base sm:text-lg text-[#789568] whitespace-nowrap">PARN & MIKE</Link>
+            <div className="space-x-3 sm:space-x-6 whitespace-nowrap">
+              <Link href="/gallery" className="text-xs sm:text-sm font-serif font-medium text-[#536B3E] hover:text-[#789568]">Photos</Link>
+              <Link href="/rsvp" className="text-xs sm:text-sm font-serif font-medium text-[#536B3E] hover:text-[#789568]">RSVP</Link>
+              <Link href="/information" className="text-xs sm:text-sm font-serif font-medium text-[#536B3E] hover:text-[#789568]">Information</Link>
+              <Link href="/schedule" className="text-xs sm:text-sm font-serif font-medium text-[#536B3E] hover:text-[#789568]">Schedule</Link>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <main className="max-w-5xl mx-auto px-4 py-8 sm:py-12">
+        {/* Facebook page banner */}
+        <a
+          href="https://www.facebook.com/profile.php?id=61596252849472"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block bg-white rounded-3xl shadow-lg border border-[#789568]/10 overflow-hidden mb-12 group"
+        >
+          <img src="/images/fb-cover.jpg" alt="เพจ เมื่อฉันจะต้อง 'แต่งงาน'" className="w-full aspect-[1251/405] object-cover" />
+          <div className="px-5 sm:px-8 pb-6 sm:pb-7 flex flex-col sm:flex-row sm:items-end gap-3 sm:gap-5">
+            <img
+              src="/images/fb-avatar.png"
+              alt=""
+              className="-mt-12 sm:-mt-14 w-24 h-24 sm:w-28 sm:h-28 rounded-full border-4 border-white shadow-md bg-[#F5EBD2]"
+            />
+            <div className="flex-1 sm:pt-4">
+              <p className="text-[10px] tracking-[0.25em] text-[#C9A45C] font-semibold">ALL HANDMADE · WEDDING BY PARN</p>
+              <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#536B3E] mt-1">เมื่อฉันจะต้อง &apos;แต่งงาน&apos;</h1>
+              <p className="text-sm text-[#789568] mt-1">ทุกชิ้นในงานนี้ เป็นงานแฮนด์เมดของเจ้าสาวทั้งหมด</p>
+            </div>
+            <span className="self-start sm:self-end inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#536B3E] text-white text-sm font-semibold shadow group-hover:bg-[#3a4d2e] transition">
+              <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor" aria-hidden="true"><path d="M14 8h3V4h-3c-2.8 0-4.5 1.9-4.5 4.6V11H7v4h2.5v9h4v-9h3l.5-4h-3.5V8.9c0-.6.3-.9 1-.9z" /></svg>
+              ติดตามผลงาน
+            </span>
+          </div>
+        </a>
+
+        <div className="text-center mb-10">
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#536B3E] mb-3">Made with Love</h2>
+          <p className="text-sm text-[#789568] max-w-xl mx-auto leading-relaxed">
+            จากความตั้งใจอยากให้วันสำคัญเป็นแบบที่เราสองคนชอบที่สุด ตั้งแต่ขันหมาก การ์ด ของชำร่วย ไปจนถึงเกมในงานและเว็บที่คุณกำลังเปิดอยู่ เจ้าสาวค่อย ๆ ทำขึ้นเองด้วยมือทุกชิ้น
+          </p>
+        </div>
+
+        <ul className="flex flex-wrap justify-center gap-4 sm:gap-6">
+          {works.map((w) => (
+            <li key={w.key} className="w-[calc(50%-0.5rem)] sm:w-[calc(50%-0.75rem)] lg:w-[calc(25%-1.125rem)] bg-white rounded-2xl p-5 sm:p-6 border border-[#789568]/10 shadow-sm text-center">
+              <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-[#F5EBD2] flex items-center justify-center" style={{ color: ink }}>
+                <span className="w-9 h-9 block">{icons[w.key]}</span>
+              </div>
+              <p className="text-[10px] tracking-[0.2em] text-[#C9A45C] font-semibold uppercase">{w.en}</p>
+              <h3 className="font-serif text-base sm:text-lg font-bold text-[#536B3E] mt-1">{w.th}</h3>
+              <p className="text-xs sm:text-sm text-[#789568] mt-2 leading-relaxed">{w.note}</p>
+            </li>
+          ))}
+        </ul>
+
+        <section className="mt-14 text-center bg-white/60 rounded-3xl border border-[#C9A45C]/30 px-6 py-10">
+          <p className="font-serif text-xl font-bold text-[#536B3E]">อยากได้แบบนี้ในงานของคุณบ้างไหม?</p>
+          <p className="text-sm text-[#789568] mt-2 mb-6 max-w-md mx-auto leading-relaxed">
+            ถ้าชอบชิ้นไหน หรืออยากให้ช่วยดูแลบางส่วนของงานแต่งคุณ ทักมาคุยกันเล่น ๆ ที่เพจได้เลยนะคะ
+          </p>
+          <FbPageLink tone="dark" />
+        </section>
+
+        <div className="text-center mt-10">
+          <Link href="/" className="text-[#789568] hover:text-[#536B3E] font-semibold underline">← Back to Home</Link>
+        </div>
+      </main>
+
+      <footer className="bg-gradient-to-r from-[#536B3E] to-[#3a4d2e] text-white py-12 mt-8 border-t border-[#789568]/20">
+        <div className="max-w-6xl mx-auto px-4 text-center space-y-3">
+          <p className="font-serif text-lg font-semibold text-[#B7A286]">PARN & MIKE</p>
+          <p className="text-sm text-[#B7A286]">© 2026 Our Special Day. All our love.</p>
+        </div>
+      </footer>
+    </div>
+  )
+}
