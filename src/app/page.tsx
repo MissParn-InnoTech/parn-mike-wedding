@@ -422,6 +422,20 @@ export default function Home() {
               </div>
             </div>
           </Link>
+
+          {/* Made with Love */}
+          <Link href="/made-with-love" className="md:col-span-2">
+            <div className="bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all transform hover:scale-[1.02] border border-[#789568]/10 md:flex">
+              <img src="/images/fb-cover.jpg" alt="Made with Love" className="w-full h-32 md:h-auto md:w-1/2 object-cover" />
+              <div className="p-6 md:p-8 text-center md:text-left md:flex-1 md:flex md:flex-col md:justify-center">
+                <p className="text-[10px] tracking-[0.25em] text-[#C9A45C] font-semibold mb-1">ALL HANDMADE</p>
+                <h3 className="font-serif text-2xl font-bold text-[#536B3E] mb-2">Made with Love</h3>
+                <p className="text-[#789568] font-serif">Behind the scenes of our day</p>
+                <p className="text-[#789568] font-serif text-sm">ทุกชิ้นในงานนี้ เจ้าสาวทำเอง <br className="md:hidden" />ดูเบื้องหลังและโหวตชิ้นที่ชอบ</p>
+                <span className="mt-4 self-center md:self-start inline-flex items-center gap-1 text-sm font-semibold text-[#536B3E] underline decoration-[#C9A45C] underline-offset-4">ดูผลงาน ♥ →</span>
+              </div>
+            </div>
+          </Link>
         </div>
       </section>
 
