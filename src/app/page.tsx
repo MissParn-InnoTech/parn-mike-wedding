@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import VisitorCounter from '@/components/VisitorCounter'
+import FbPageLink from '@/components/FbPageLink'
 
 const GALLERY_PHOTOS = [
   'https://i.postimg.cc/LsG5B2rF/853627697-29575805742005040-2034688767196755346-n.jpg',
@@ -442,6 +443,7 @@ export default function Home() {
           <p className="font-serif text-lg font-semibold text-[#B7A286]">PARN & MIKE</p>
           <p className="text-sm text-[#B7A286]">© 2026 Our Special Day. All our love.</p>
           <p className="text-xs text-[#B7A286]/80">Created by Bride Parn</p>
+          <div className="pt-1"><FbPageLink /></div>
           <div className="pt-2"><VisitorCounter /></div>
         </div>
       </footer>

@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { SHEET_SCRIPT_URL } from '@/lib/sheet'
+import FbPageLink from '@/components/FbPageLink'
 
 // Guest photo gallery: lists images from the Drive photo folders through the Apps Script
 // (?action=gallery, v7+). Friends can open a photo full screen and download it.
@@ -192,6 +193,7 @@ export default function GalleryPage() {
             </div>
           </>
         )}
+        <div className="text-center mt-12"><FbPageLink tone="dark" /></div>
       </main>
 
       {current && open !== null && photos && (

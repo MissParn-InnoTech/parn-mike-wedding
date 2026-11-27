@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import GiftWishes, { WISHES_SCRIPT_URL } from '@/components/GiftWishes'
+import FbPageLink from '@/components/FbPageLink'
 
 type Wish = { name: string; side?: string; message: string }
 
@@ -82,6 +83,7 @@ export default function WishesPage() {
           <p className="font-serif text-lg font-semibold text-[#B7A286]">PARN & MIKE</p>
           <p className="text-sm text-[#B7A286]">© 2026 Our Special Day. All our love.</p>
           <p className="text-xs text-[#B7A286]/80">Created by Bride Parn</p>
+          <div className="pt-1"><FbPageLink /></div>
         </div>
       </footer>
     </div>
