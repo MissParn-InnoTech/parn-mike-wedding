@@ -6,6 +6,7 @@ import { SHEET_SCRIPT_URL, compressImage, postToSheet } from '@/lib/sheet'
 import { STICKER_KEYS, StickerIcon } from '@/components/CuteStickers'
 import VoiceInput from '@/components/VoiceInput'
 import WishExamples from '@/components/WishExamples'
+import FbPageLink from '@/components/FbPageLink'
 
 // In-venue guestbook: guests write a short wish on a card, decorate it with stickers and can
 // attach a photo. The Apps Script (v6+) saves cards to the separate "อวยพรในงาน" sheet, with
@@ -380,6 +381,7 @@ export default function GuestbookPage() {
 
         <div className="text-center mt-12">
           <Link href="/" className="text-[#789568] hover:text-[#536B3E] font-semibold underline">← Back to Home</Link>
+          <div className="mt-6"><FbPageLink tone="dark" /></div>
         </div>
       </main>
     </div>

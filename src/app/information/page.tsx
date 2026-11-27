@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { Info, Clock, Lightbulb } from 'lucide-react'
+import FbPageLink from '@/components/FbPageLink'
 
 export default function InformationPage() {
   return (
@@ -210,6 +211,7 @@ export default function InformationPage() {
           <p className="font-serif text-lg font-semibold text-[#B7A286]">PARN & MIKE</p>
           <p className="text-sm text-[#B7A286]">© 2026 Our Special Day. All our love.</p>
           <p className="text-xs text-[#B7A286]/80">Created by Bride Parn</p>
+          <div className="pt-1"><FbPageLink /></div>
         </div>
       </footer>
     </div>

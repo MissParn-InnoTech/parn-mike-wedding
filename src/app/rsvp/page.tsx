@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import GiftWishes from '@/components/GiftWishes'
 import { postToSheet } from '@/lib/sheet'
+import FbPageLink from '@/components/FbPageLink'
 
 export default function RSVPPage() {
   const [loading, setLoading] = useState(false)
@@ -188,6 +189,7 @@ export default function RSVPPage() {
         <div className="max-w-6xl mx-auto px-4 text-center space-y-3">
           <p className="font-serif text-lg font-semibold text-[#B7A286]">PARN & MIKE</p>
           <p className="text-sm text-[#B7A286]">© 2026 Our Special Day. All our love.</p>
+          <div className="pt-1"><FbPageLink /></div>
         </div>
       </footer>
     </div>
