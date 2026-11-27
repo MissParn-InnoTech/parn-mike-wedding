@@ -89,16 +89,39 @@ export default function MadeWithLovePage() {
         </div>
       </nav>
 
-      <main className="max-w-4xl mx-auto px-4 py-14 sm:py-20">
-        <header className="text-center mb-12">
-          <p className="text-[#C9A45C] font-serif font-semibold tracking-[0.3em] text-xs mb-4">ALL HANDMADE</p>
-          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#536B3E] mb-3">Made with Love</h1>
-          <p className="font-serif text-lg text-[#536B3E]">ทุกชิ้นในงานนี้ เป็นงานแฮนด์เมดทั้งหมด</p>
-          <p className="text-sm text-[#789568] mt-3 max-w-xl mx-auto leading-relaxed">
-            จากความตั้งใจอยากให้วันสำคัญเป็นแบบที่เราสองคนชอบที่สุด
-            ตั้งแต่ขันหมาก การ์ด ไปจนถึงเกมในงานและเว็บที่คุณกำลังเปิดอยู่ เจ้าสาวค่อย ๆ ทำขึ้นเองด้วยมือทุกชิ้น
+      <main className="max-w-4xl mx-auto px-4 py-8 sm:py-12">
+        {/* Facebook page banner */}
+        <a
+          href="https://www.facebook.com/profile.php?id=61596252849472"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block bg-white rounded-3xl shadow-lg border border-[#789568]/10 overflow-hidden mb-12 group"
+        >
+          <img src="/images/fb-cover.jpg" alt="เพจ เมื่อฉันจะต้อง 'แต่งงาน'" className="w-full aspect-[1251/405] object-cover" />
+          <div className="px-5 sm:px-8 pb-6 sm:pb-7 flex flex-col sm:flex-row sm:items-end gap-3 sm:gap-5">
+            <img
+              src="/images/fb-avatar.png"
+              alt=""
+              className="-mt-12 sm:-mt-14 w-24 h-24 sm:w-28 sm:h-28 rounded-full border-4 border-white shadow-md bg-[#F5EBD2]"
+            />
+            <div className="flex-1 sm:pt-4">
+              <p className="text-[10px] tracking-[0.25em] text-[#C9A45C] font-semibold">ALL HANDMADE · WEDDING BY PARN</p>
+              <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#536B3E] mt-1">เมื่อฉันจะต้อง &apos;แต่งงาน&apos;</h1>
+              <p className="text-sm text-[#789568] mt-1">ทุกชิ้นในงานนี้ เป็นงานแฮนด์เมดของเจ้าสาวทั้งหมด</p>
+            </div>
+            <span className="self-start sm:self-end inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#536B3E] text-white text-sm font-semibold shadow group-hover:bg-[#3a4d2e] transition">
+              <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor" aria-hidden="true"><path d="M14 8h3V4h-3c-2.8 0-4.5 1.9-4.5 4.6V11H7v4h2.5v9h4v-9h3l.5-4h-3.5V8.9c0-.6.3-.9 1-.9z" /></svg>
+              ติดตามผลงาน
+            </span>
+          </div>
+        </a>
+
+        <div className="text-center mb-10">
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#536B3E] mb-3">Made with Love</h2>
+          <p className="text-sm text-[#789568] max-w-xl mx-auto leading-relaxed">
+            จากความตั้งใจอยากให้วันสำคัญเป็นแบบที่เราสองคนชอบที่สุด ตั้งแต่ขันหมาก การ์ด ไปจนถึงเกมในงานและเว็บที่คุณกำลังเปิดอยู่ เจ้าสาวค่อย ๆ ทำขึ้นเองด้วยมือทุกชิ้น
           </p>
-        </header>
+        </div>
 
         <ul className="flex flex-wrap justify-center gap-4 sm:gap-6">
           {works.map((w) => (
@@ -107,7 +130,7 @@ export default function MadeWithLovePage() {
                 <span className="w-9 h-9 block">{icons[w.key]}</span>
               </div>
               <p className="text-[10px] tracking-[0.2em] text-[#C9A45C] font-semibold uppercase">{w.en}</p>
-              <h2 className="font-serif text-base sm:text-lg font-bold text-[#536B3E] mt-1">{w.th}</h2>
+              <h3 className="font-serif text-base sm:text-lg font-bold text-[#536B3E] mt-1">{w.th}</h3>
               <p className="text-xs sm:text-sm text-[#789568] mt-2 leading-relaxed">{w.note}</p>
             </li>
           ))}
