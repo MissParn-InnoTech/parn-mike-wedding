@@ -26,6 +26,13 @@ const icons: Record<string, JSX.Element> = {
       <path d="M24 33c-3-2-5-3.5-5-5.5a2.5 2.5 0 0 1 5-1 2.5 2.5 0 0 1 5 1c0 2-2 3.5-5 5.5z" fill="currentColor" stroke="none" opacity=".35" />
     </svg>
   ),
+  favor: (
+    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="9" y="20" width="30" height="20" rx="2" />
+      <path d="M7 14h34v6H7zM24 14v26" />
+      <path d="M24 14c-2-5-9-7-9-2 0 2 4 2 9 2zM24 14c2-5 9-7 9-2 0 2-4 2-9 2z" />
+    </svg>
+  ),
   vendor: (
     <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <rect x="12" y="8" width="24" height="32" rx="3" />
@@ -65,6 +72,7 @@ const icons: Record<string, JSX.Element> = {
 const works = [
   { key: 'khanmaak', en: 'Khan Maak Set', th: 'ชุดขันหมาก', note: 'จัดพานและของในขันหมากเอง ทุกชิ้นเลือกให้เข้าธีมของงาน' },
   { key: 'card', en: 'Invitation Cards', th: 'การ์ดเชิญ', note: 'ออกแบบการ์ดและซองเอง ทั้งแบบพิมพ์และแบบส่งออนไลน์' },
+  { key: 'favor', en: 'Wedding Favors', th: 'ของชำร่วย', note: 'เลือก แพ็ก และผูกโบว์ของชำร่วยเอง ทุกชิ้นตั้งใจให้แขกที่มาร่วมงาน' },
   { key: 'vendor', en: 'Vendor Planning', th: 'ประสานงาน Vendor', note: 'เลือกและดูแลทีมงานเอง สถานที่ ช่างภาพ ดอกไม้ อาหาร' },
   { key: 'art', en: 'Artwork & Signage', th: 'งานอาร์ตและป้าย', note: 'ผังโต๊ะ ป้ายต้อนรับ Tent Card สติ๊กเกอร์ ในโทนเดียวกันทั้งงาน' },
   { key: 'system', en: 'Parn & Mike Management', th: 'ระบบจัดการงาน', note: 'ระบบหลังบ้านของงาน ตอบรับแขก ผังที่นั่ง ของรางวัล รวมไว้ในที่เดียว' },
@@ -89,7 +97,7 @@ export default function MadeWithLovePage() {
         </div>
       </nav>
 
-      <main className="max-w-4xl mx-auto px-4 py-8 sm:py-12">
+      <main className="max-w-5xl mx-auto px-4 py-8 sm:py-12">
         {/* Facebook page banner */}
         <a
           href="https://www.facebook.com/profile.php?id=61596252849472"
@@ -119,13 +127,13 @@ export default function MadeWithLovePage() {
         <div className="text-center mb-10">
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#536B3E] mb-3">Made with Love</h2>
           <p className="text-sm text-[#789568] max-w-xl mx-auto leading-relaxed">
-            จากความตั้งใจอยากให้วันสำคัญเป็นแบบที่เราสองคนชอบที่สุด ตั้งแต่ขันหมาก การ์ด ไปจนถึงเกมในงานและเว็บที่คุณกำลังเปิดอยู่ เจ้าสาวค่อย ๆ ทำขึ้นเองด้วยมือทุกชิ้น
+            จากความตั้งใจอยากให้วันสำคัญเป็นแบบที่เราสองคนชอบที่สุด ตั้งแต่ขันหมาก การ์ด ของชำร่วย ไปจนถึงเกมในงานและเว็บที่คุณกำลังเปิดอยู่ เจ้าสาวค่อย ๆ ทำขึ้นเองด้วยมือทุกชิ้น
           </p>
         </div>
 
         <ul className="flex flex-wrap justify-center gap-4 sm:gap-6">
           {works.map((w) => (
-            <li key={w.key} className="w-[calc(50%-0.5rem)] sm:w-[calc(50%-0.75rem)] md:w-[calc(33.333%-1rem)] bg-white rounded-2xl p-5 sm:p-6 border border-[#789568]/10 shadow-sm text-center">
+            <li key={w.key} className="w-[calc(50%-0.5rem)] sm:w-[calc(50%-0.75rem)] lg:w-[calc(25%-1.125rem)] bg-white rounded-2xl p-5 sm:p-6 border border-[#789568]/10 shadow-sm text-center">
               <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-[#F5EBD2] flex items-center justify-center" style={{ color: ink }}>
                 <span className="w-9 h-9 block">{icons[w.key]}</span>
               </div>
