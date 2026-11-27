@@ -1,9 +1,7 @@
 'use client'
 
-import { useState } from 'react'
-
-// Sample wishes guests can tap to drop into the wish box, then edit. Helpful for elders
-// and for guests who aren't sure what to write.
+// Sample wishes in a compact dropdown: picking one drops it into the wish box to edit.
+// Helpful for elders and guests who aren't sure what to write.
 
 const EXAMPLES = [
   'ขอให้รักกันนาน ๆ มีความสุขมาก ๆ นะ',
@@ -15,32 +13,24 @@ const EXAMPLES = [
 ]
 
 export default function WishExamples({ onPick }: { onPick: (text: string) => void }) {
-  const [open, setOpen] = useState(false)
   return (
     <div className="mt-2">
-      <button
-        type="button"
-        onClick={() => setOpen((o) => !o)}
-        aria-expanded={open}
-        className="text-xs font-semibold text-[#536B3E] underline decoration-[#C9A45C] underline-offset-2"
+      <div className="relative">
+      <label htmlFor="wish-examples" className="sr-only">ตัวอย่างคำอวยพร</label>
+      <select
+        id="wish-examples"
+        value=""
+        onChange={(e) => { if (e.target.value) onPick(e.target.value) }}
+        className="w-full appearance-none pl-3.5 pr-9 py-2.5 rounded-xl bg-[#F5EBD2]/70 border border-[#C9A45C]/40 text-sm text-[#536B3E] focus:outline-none focus:border-[#789568] cursor-pointer"
       >
-        {open ? 'ซ่อนตัวอย่างคำอวยพร' : '💡 ไม่รู้จะเขียนอะไร? ดูตัวอย่างคำอวยพร'}
-      </button>
-      {open && (
-        <div className="mt-2 space-y-2">
-          <p className="text-xs text-[#789568]">แตะข้อความที่ชอบ แล้วแก้ต่อได้ตามใจเลยค่ะ</p>
-          {EXAMPLES.map((t) => (
-            <button
-              key={t}
-              type="button"
-              onClick={() => { onPick(t); setOpen(false) }}
-              className="block w-full text-left text-sm px-3.5 py-2.5 rounded-xl bg-[#F5EBD2]/70 border border-[#C9A45C]/40 text-[#536B3E] hover:bg-[#F5EBD2] transition"
-            >
-              “{t}”
-            </button>
-          ))}
-        </div>
-      )}
+        <option value="">💡 ไม่รู้จะเขียนอะไร? เลือกตัวอย่างคำอวยพร</option>
+        {EXAMPLES.map((t) => (
+          <option key={t} value={t}>{t}</option>
+        ))}
+      </select>
+      <svg viewBox="0 0 20 20" className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#789568]" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M5 8l5 5 5-5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+      </div>
+      <p className="text-[11px] text-[#789568] mt-1">เลือกแล้วแก้ต่อได้ตามใจเลยค่ะ</p>
     </div>
   )
 }
