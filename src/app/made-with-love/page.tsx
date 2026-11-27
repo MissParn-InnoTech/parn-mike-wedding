@@ -46,6 +46,13 @@ const icons: Record<string, JSX.Element> = {
       <path d="M8 18h32M18 18v20M8 26h32M8 32h32" />
     </svg>
   ),
+  game: (
+    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="9" y="17" width="22" height="22" rx="4" />
+      <circle cx="15" cy="23" r="1.5" fill="currentColor" /><circle cx="20" cy="28" r="1.5" fill="currentColor" /><circle cx="25" cy="33" r="1.5" fill="currentColor" />
+      <path d="M31 22l6-6M34 11l1.5 3 3 1.5-3 1.5L34 20l-1.5-3-3-1.5 3-1.5z" />
+    </svg>
+  ),
   web: (
     <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <rect x="15" y="6" width="18" height="36" rx="4" />
@@ -60,7 +67,8 @@ const works = [
   { key: 'card', en: 'Invitation Cards', th: 'การ์ดเชิญ', note: 'ออกแบบการ์ดและซองเอง ทั้งแบบพิมพ์และแบบส่งออนไลน์' },
   { key: 'vendor', en: 'Vendor Planning', th: 'ประสานงาน Vendor', note: 'เลือกและดูแลทีมงานเอง สถานที่ ช่างภาพ ดอกไม้ อาหาร' },
   { key: 'art', en: 'Artwork & Signage', th: 'งานอาร์ตและป้าย', note: 'ผังโต๊ะ ป้ายต้อนรับ Tent Card สติ๊กเกอร์ ในโทนเดียวกันทั้งงาน' },
-  { key: 'system', en: 'Wedding Management', th: 'ระบบจัดการงาน', note: 'ตอบรับแขก ผังที่นั่ง ของรางวัล เชื่อมกับ Google Sheet ในที่เดียว' },
+  { key: 'system', en: 'Parn & Mike Management', th: 'ระบบจัดการงาน', note: 'ระบบหลังบ้านของงาน ตอบรับแขก ผังที่นั่ง ของรางวัล รวมไว้ในที่เดียว' },
+  { key: 'game', en: 'Wedding Games', th: 'เกมในงาน', note: 'คิดเกมและกิจกรรมจับรางวัลเอง ให้แขกสนุกไปด้วยกันทั้งงาน' },
   { key: 'web', en: 'Wedding Website', th: 'เว็บงานแต่ง', note: 'เว็บไซต์นี้ รวม RSVP กำหนดการ แกลเลอรี่ และการ์ดอวยพรในงาน' },
 ]
 
@@ -83,18 +91,18 @@ export default function MadeWithLovePage() {
 
       <main className="max-w-4xl mx-auto px-4 py-14 sm:py-20">
         <header className="text-center mb-12">
-          <p className="text-[#C9A45C] font-serif font-semibold tracking-[0.3em] text-xs mb-4">BEHIND THE DAY</p>
+          <p className="text-[#C9A45C] font-serif font-semibold tracking-[0.3em] text-xs mb-4">ALL HANDMADE</p>
           <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#536B3E] mb-3">Made with Love</h1>
-          <p className="font-serif text-lg text-[#536B3E]">งานนี้ เจ้าสาวลงมือทำเองแทบทุกอย่าง</p>
+          <p className="font-serif text-lg text-[#536B3E]">ทุกชิ้นในงานนี้ เป็นงานแฮนด์เมดทั้งหมด</p>
           <p className="text-sm text-[#789568] mt-3 max-w-xl mx-auto leading-relaxed">
             จากความตั้งใจอยากให้วันสำคัญเป็นแบบที่เราสองคนชอบที่สุด
-            ทุกรายละเอียดตั้งแต่ขันหมากจนถึงเว็บที่คุณกำลังเปิดอยู่ จึงค่อย ๆ ถูกทำขึ้นด้วยมือของเราเอง
+            ตั้งแต่ขันหมาก การ์ด ไปจนถึงเกมในงานและเว็บที่คุณกำลังเปิดอยู่ เจ้าสาวค่อย ๆ ทำขึ้นเองด้วยมือทุกชิ้น
           </p>
         </header>
 
-        <ul className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+        <ul className="flex flex-wrap justify-center gap-4 sm:gap-6">
           {works.map((w) => (
-            <li key={w.key} className="bg-white rounded-2xl p-5 sm:p-6 border border-[#789568]/10 shadow-sm text-center">
+            <li key={w.key} className="w-[calc(50%-0.5rem)] sm:w-[calc(50%-0.75rem)] md:w-[calc(33.333%-1rem)] bg-white rounded-2xl p-5 sm:p-6 border border-[#789568]/10 shadow-sm text-center">
               <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-[#F5EBD2] flex items-center justify-center" style={{ color: ink }}>
                 <span className="w-9 h-9 block">{icons[w.key]}</span>
               </div>
